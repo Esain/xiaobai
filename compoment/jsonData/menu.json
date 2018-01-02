@@ -1,21 +1,21 @@
 {
     "button": [
     {
-        "name": "故事云",
         "type": "click",
+        "name": "故事云",
         "key": "WATING_DEV"
     },
     {
         "name": "账户设置",
         "sub_button": [
         {
-            "name": "贷款订单",
             "type": "view",
+            "name": "账户绑定",
             "url": "http://47.52.238.90#account"
         },
         {
-            "name": "宝宝动态",
             "type": "click",
+            "name": "宝宝动态",
             "key": "WATING_DEV"
         }]
     }]
