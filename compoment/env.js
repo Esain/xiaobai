@@ -36,7 +36,7 @@ var online_env = {
     SEVER_LISTEN_PORT: 80,            //服务器监听端口
     //redis
     REDIS_PORT : 6379,                 //redis端口
-    REDIS_HOST : 'http://127.0.0.1',     //redis服务器地址
+    REDIS_HOST : '127.0.0.1',     //redis服务器地址
     //微信相关配置
     WEI_XIN_APP_ID: "wx2b501019002ef8cb",
     WEI_XIN_SECRET: "e4e5d0b84316b1251a5e0051a34e9e02",
