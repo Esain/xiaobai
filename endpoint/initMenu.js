@@ -4,7 +4,7 @@ var weixinUtil = require("../compoment/weixinUtil.js");
 var constants = require("../compoment/constants.js");
 
 var init_menu = function(req,resp,param){
-	weixinUtil.getToken(function(token){
+	weixinUtil.getToken(function(error, token){
 		var url = constants.MENU_URL+token;
 		console.info(url);
 		request({method:"POST",url:url,body:menuJson,json:true},function(err,response,body){
