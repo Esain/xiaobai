@@ -52,7 +52,7 @@ function processMsg(req,resp,next){
 					var msgType = user_msg.MsgType;
 					switch(msgType){
 						case 'event':
-							// wxmsg.processEvent(user_msg,req,resp,next);break;
+							wxmsg.processEvent(user_msg,req,resp,next);break;
 						case 'text':
 							wxmsg.processMsg(user_msg,req,resp,next); 
 							break;

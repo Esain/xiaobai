@@ -28,7 +28,7 @@ var sendMsg = function (context,user_msg,resp,next){
 		FromUserName : user_msg.ToUserName,
 		CreateTime : new Date().getTime(),
 		MsgType : "text",
-		Content : "已收到!"
+		Content : context || "已收到!"
 	}
 	var respXml = util.js2Xml(respMsg);
 	console.log(respXml);
@@ -59,19 +59,21 @@ var sendMsg = function (context,user_msg,resp,next){
 var processEvent = function (event_msg,req,resp,next){
 	console.log("event : ",event_msg);
 	//存入数据库
-	// switch(event_msg.Event){
-	// 	case "kf_create_session": 
-	// 		userStatistics.putStartRecord(event_msg.FromUserName
-	// 										,event_msg.CreateTime);break;
-	// 	case "kf_switch_session": 
-	// 		userStatistics.putTransferRecord(event_msg.FromUserName
-	// 											,event_msg.ToKfAccount
-	// 											,event_msg.CreateTime);break;
-	// 	case "kf_close_session": 
-	// 		userStatistics.putEndRecord(event_msg.FromUserName
-	// 										,event_msg.KfAccount
-	// 										,event_msg.CreateTime);break;
-	// }
+	switch(event_msg.Event){
+		case "CLICK": 
+			if(event_msg.EventKey === 'WATING_DEV'){
+				sendMsg('正在努力开发中...',event_msg,resp,next);
+			}
+			break;
+		// case "kf_switch_session": 
+		// 	userStatistics.putTransferRecord(event_msg.FromUserName
+		// 										,event_msg.ToKfAccount
+		// 										,event_msg.CreateTime);break;
+		// case "kf_close_session": 
+		// 	userStatistics.putEndRecord(event_msg.FromUserName
+		// 									,event_msg.KfAccount
+		// 									,event_msg.CreateTime);break;
+	}
 }
 
 var processImage = function (image_msg,req,resp,next){

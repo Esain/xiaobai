@@ -6,22 +6,22 @@ $(function(){
             'account': {
                 templateUrl: 'js/tpl/account.html',
                 controller: 'js/account.js',
-                requireAuth:true
+                requireAuth:false
             },
             'binding': {
                 templateUrl: 'js/tpl/binding.html',
                 controller: 'js/binding.js',
-                requireAuth:true
+                requireAuth:false
             },
             'baby/info': {
                 templateUrl: 'js/tpl/baby-info.html',
                 controller: 'js/baby-info.js',
-                requireAuth:true
+                requireAuth:false
             },
             'task': {
                 templateUrl: 'js/tpl/task.html',
                 controller: 'js/task.js',
-                requireAuth:true
+                requireAuth:false
             },
             'defaults': 'binding' //默认路由
         },

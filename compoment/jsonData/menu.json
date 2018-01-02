@@ -1,20 +1,22 @@
-{"button":[{
-		"name":"贷款申请",
-		"type":"view",
-		"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9e9c511970c1c70d&redirect_uri=http%3a%2f%2ftest.4000077777.com.cn%3a8888%2floan%2fstart.do&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
-	},
-	{
-		"name":"智能客服",
-		"type":"view",
-		"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9e9c511970c1c70d&redirect_uri=http%3a%2f%2ftest.4000077777.com.cn%3a8888%2floan%2ftest.do&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
-	},
-	{
-	"name":"我的账户",
-	"sub_button":[{
-			"name":"贷款订单",
-			"type":"view",
-			"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9e9c511970c1c70d&redirect_uri=http%3a%2f%2ftest.4000077777.com.cn%3a8888%2floan%2fgetRecordList.do&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
-			}
-		]
-	}
-]}
+{
+    "button": [
+    {
+        "name": "故事云",
+        "type": "click",
+        "key": "WATING_DEV"
+    },
+    {
+        "name": "账户设置",
+        "sub_button": [
+        {
+            "name": "贷款订单",
+            "type": "view",
+            "url": "http://47.52.238.90#account"
+        },
+        {
+            "name": "宝宝动态",
+            "type": "view",
+            "key": "WATING_DEV"
+        }]
+    }]
+}
