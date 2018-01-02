@@ -15,7 +15,7 @@
         },
         {
             "name": "宝宝动态",
-            "type": "view",
+            "type": "click",
             "key": "WATING_DEV"
         }]
     }]
