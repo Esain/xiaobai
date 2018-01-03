@@ -11,30 +11,12 @@
     </head>
     <body>
         <div id="ui-view"></div>
-        <!-- <script src="./js/vendor/axios.js"></script> -->
-        <script src="./js/vendor/zepto.min.js"></script>
-        <script src="./js/vendor/fastclick.js"></script>
-        <script src="./js/public.js"></script>
-        <script>
-            $(function() {
-                FastClick.attach(document.body);
-            });
-            function back(){
-                if(location.hash === 'account' || location.has === 'binding'){
-                    WeixinJSBridge.call('closeWindow');
-                }else{
-                    window.history.go(-1);
-                }
-            }
-        </script>
         <script type="text/html" id="error">
             <div>
                 {{errContent}}
             </div>
         </script>
 
-        <script src="./js/vendor/weui.js"></script>
-        <script src="./js/vendor/spa.js"></script>
-        <script src="./router-config.js"></script>
+        <script src="./js/vendor/require.min.js" data-main="./router-config.js"></script>
     </body>
 </html>
