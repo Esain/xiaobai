@@ -43,14 +43,6 @@ var online_env = {
     WEI_XIN_SECRET: "e4e5d0b84316b1251a5e0051a34e9e02",
     WEI_XIN_TOKEN: "yangyixin123"
 };
-var staging_env= {
-    name: 'staging',
-    sms:0,                              //短信
-    //redis
-    REDIS_PORT : 6379,                 //redis端口
-    REDIS_HOST : '60.191.203.122',     //redis服务器地址dev内网ip
-
-};
 
 // module.exports = dev_env;
  // module.exports = staging_env;

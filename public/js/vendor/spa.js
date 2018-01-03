@@ -2,6 +2,7 @@
     function Vipspa(){
 
     }
+
     Vipspa.prototype.start = function(config){
         var self = this;
         self.routerMap = config.router;
@@ -135,6 +136,7 @@
             success: function(data, status, xhr){
                 // 请求拦截
                 $(vipspa.mainView).html(data);
+                document.title = routerItem.title;
                 loadScript(routerItem.controller);
             },
             error: function(xhr, errorType, error){
