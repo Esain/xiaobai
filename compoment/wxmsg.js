@@ -1,6 +1,6 @@
 var path = require("path");
 var fs = require("fs");
-var redisUtil = require(path.join(process.cwd(),"compoment/redisUtil.js"));
+// var redisUtil = require(path.join(process.cwd(),"compoment/redisUtil.js"));
 var util = require(path.join(process.cwd(),"/compoment/util.js"));
 // var weixinUtil = require(path.join(process.cwd(),"/compoment/weixinUtil.js"));
 // var userStatistics = require(path.join(process.cwd(),"/compoment/userStatistics.js"));
