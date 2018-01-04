@@ -8,22 +8,21 @@ module.exports = function (req, resp, param, next) {
     else{
         var code = param.code;
         request
-            .get(constants.getAuthAccessUrl(code))
-            .on('error', function (err) {
-                console.error('')
-            })
-            .on('response', function (response) {
-                if (response.errcode) {
-                    console.error(`获取token失败${response.errcode} ---- ${response.errmsg}`);
-                    var error = new Error('获取token失败')
-                    next(error);
-                } else {
-                    resp.cookie('openID', response.openid);
-                    resp.redirect('/');
+            .get(constants.getAuthAccessUrl(code), function (error, response, body) {
+                if(error){
+
+                }else{
+                    console.log(body);
+                    if (body.errcode) {
+                        console.error(`获取token失败${response.errcode} ---- ${response.errmsg}`);
+                        var error = new Error('获取token失败')
+                        next(error);
+                    } else {
+                        resp.cookie('openID', body.openid);
+                        resp.redirect('/');
+                    }
                 }
             })
-            .on('end', function () {
-                console.log('获取token结束')
-            })
+          
     }
 }

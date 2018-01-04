@@ -1,5 +1,5 @@
 define(function() {
-    return Cookie = {}
+    var Cookie = {}
     Cookie.setCookie = function(name, value) {
         var Days = 30;
         var exp = new Date();
@@ -24,4 +24,6 @@ define(function() {
         if (cval != null)
             document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
     }
+
+    return Cookie;
 })
