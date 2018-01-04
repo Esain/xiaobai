@@ -21,12 +21,13 @@ var dev_env = {
     REDIS_PORT : 6379,                 //redis端口
     REDIS_HOST : '127.0.0.1',     //redis服务器地址
     REDIS_PASS : 'xiaobai',
+    REDIRECT_URI: 'http://47.52.238.90/userAccess',  //授权回调地址
 
-    MANAGEMENT_HOST:"http://127.0.0.1:8081",//后台服务器地址
+    MANAGEMENT_HOST: 'http://127.0.0.1:8081',//后台服务器地址
     //微信相关配置
-    WEI_XIN_APP_ID: "wxb00577c81c47eecd",
-    WEI_XIN_SECRET: "1906a54e388e3ced32d303c456fbe60d",
-    WEI_XIN_TOKEN: "yangyixin123"
+    WEI_XIN_APP_ID: 'wxb00577c81c47eecd',
+    WEI_XIN_SECRET: '1906a54e388e3ced32d303c456fbe60d',
+    WEI_XIN_TOKEN: 'yangyixin123'
 
 };
 //线上环境配置
@@ -39,9 +40,9 @@ var online_env = {
     REDIS_HOST : '127.0.0.1',     //redis服务器地址
     REDIS_PASS : 'xiaobai',
     //微信相关配置
-    WEI_XIN_APP_ID: "wx2b501019002ef8cb",
-    WEI_XIN_SECRET: "e4e5d0b84316b1251a5e0051a34e9e02",
-    WEI_XIN_TOKEN: "yangyixin123"
+    WEI_XIN_APP_ID: 'wx2b501019002ef8cb',
+    WEI_XIN_SECRET: 'e4e5d0b84316b1251a5e0051a34e9e02',
+    WEI_XIN_TOKEN: 'yangyixin123'
 };
 
 module.exports = dev_env;

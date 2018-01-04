@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 // var socketUtil = require(path.join(process.cwd(),'compoment/socketUtil.js'));
 
 // var routes = require('./routes/index');
@@ -23,17 +24,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+  secret: 'xiaobai',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 //app.use('/', routes);
 //app.use('/users', users);
-registerRouteByDir(function(path, handler){
+registerRouteByDir(function (path, handler) {
   app.get(path, wrap(handler));
   app.post(path, wrap(handler));
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -44,7 +50,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'dev') {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -55,7 +61,7 @@ if (app.get('env') === 'dev') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -65,8 +71,8 @@ app.use(function(err, req, res, next) {
 
 
 
-function registerRouteByDir(register){
-  myUtil.listFile(process.cwd()+'/endpoint', function(file, fPath) {
+function registerRouteByDir(register) {
+  myUtil.listFile(process.cwd() + '/endpoint', function (file, fPath) {
     var relative = path.relative(process.cwd() + "/endpoint/", path.join(fPath, file));
     var reqPath = '/' + relative.substr(0, relative.lastIndexOf('.js'));
     var handler = require(path.join(fPath, file));
@@ -84,13 +90,13 @@ function registerRouteByDir(register){
 };
 //统一GET/POST的参数
 //f的签名为 f(paramObj, res)
-function wrap(f){
-  return function(req, resp,next){
+function wrap(f) {
+  return function (req, resp, next) {
     var query = req.query;
     var body = req.body;
     var params = req.params;
     //还是要将req传进来
-    f(req, resp,myUtil.mergeJson(query,body,params),next);
+    f(req, resp, myUtil.mergeJson(query, body, params), next);
   }
 }
 
