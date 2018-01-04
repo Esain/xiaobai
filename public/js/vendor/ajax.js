@@ -22,9 +22,7 @@ define(['p','common'], function (p, util) {
 		
 			return new myPromise(function(resolve, reject){
 				var postUrl = ajaxOpt.url;
-				if(ajaxOpt.url.indexOf('http') == -1){
-					postUrl = postServer + ajaxOpt.url;
-				}
+			
 				var defaultOpt = {
 					 	url: postUrl,
 					  	success: success,
@@ -37,7 +35,11 @@ define(['p','common'], function (p, util) {
 					  	// },
 					  	timeout: 8000
 					}
-				ajaxOpt = $({}, defaultOpt, ajaxOpt);
+				ajaxOpt = $.extend({}, defaultOpt, ajaxOpt);
+				
+				if (ajaxOpt.url.indexOf('http') == -1) {
+					postUrl = postServer + ajaxOpt.url;
+				}
 
 				$.ajax(ajaxOpt);
 				
