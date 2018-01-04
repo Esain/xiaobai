@@ -70,7 +70,7 @@ define(['p','common'], function (p, util) {
 				function beforeSend(){
 					// $('body').loading();
 				}
-			}
+			});
 		}
 	}
 });
