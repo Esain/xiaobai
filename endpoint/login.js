@@ -3,7 +3,7 @@ var request = require('request');
 var constants = require('../compoment/constants');
 
 module.exports = function (req, resp, param, next) {
-    if (req.cookies && req.cookie.openID){
+    if (req.cookies && req.cookies.openID){
         resp.redirect("/");
     }else if(!param.code && !param.state){
         resp.redirect(constants.AUTH_URL);

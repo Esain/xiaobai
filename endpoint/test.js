@@ -3,8 +3,6 @@ var request = require('request');
 var constants = require('../compoment/constants');
 
 module.exports = function (req, resp, param, next) {
-    var openid = req.headers.cookie.opendID
-    console.log('headers  ', req.headers);
-    console.log('cookie ', req.headers.cookie);
-    resp.send(openid)
+    var opendID = req.cookies.opendID
+    resp.send(opendID)
 }
