@@ -12,13 +12,13 @@ module.exports = function (req, resp, param, next) {
                 if(error){
 
                 }else{
-                    console.log(body);
-                    if (body.errcode) {
-                        console.error(`获取token失败${response.errcode} ---- ${response.errmsg}`);
+                    var reqObj = JSON.parse(body)
+                    if (reqObj.errcode) {
+                        console.error(`获取token失败${reqObj.errcode} ---- ${reqObj.errmsg}`);
                         var error = new Error('获取token失败')
                         next(error);
                     } else {
-                        resp.cookie('openID', body.openid);
+                        resp.cookie('openID', reqObj.openid);
                         resp.redirect('/');
                     }
                 }
