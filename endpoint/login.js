@@ -3,7 +3,7 @@ var request = require('request');
 var constants = require('../compoment/constants');
 
 module.exports = function (req, resp, param, next) {
-    if (req.headers.cookie && req.headers.cookie.openID){
+    if (req.cookies && req.cookie.openID){
         resp.redirect("/");
     }else if(!param.code && !param.state){
         resp.redirect(constants.AUTH_URL);
@@ -20,7 +20,7 @@ module.exports = function (req, resp, param, next) {
                         var error = new Error('获取token失败')
                         next(error);
                     } else {
-                        resp.cookie('openID', reqObj.openid, { maxAge: (Date.now()/1000).toFixed(0) + 72000 });
+                        resp.cookie('openID', reqObj.openid, { maxAge: Date.now() + 72000000 });
                         resp.redirect('/');
                     }
                 }
