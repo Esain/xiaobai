@@ -3,7 +3,7 @@ var request = require('request');
 var constants = require('../compoment/constants');
 
 module.exports = function (req, resp, param, next) {
-    if (!req.param.code && !req.param.state)
+    if (!param.code && !param.state)
         resp.redirect(constants.AUTH_URL)
     else{
         var code = param.code;
@@ -18,9 +18,9 @@ module.exports = function (req, resp, param, next) {
                     var error = new Error('获取token失败')
                     next(error);
                 } else {
-                    req.session.openID = response.openid;
+                    resp.cookie('openID', response.openid);
+                    resp.redirect('/');
                 }
-                resp.redirect('/');
             })
             .on('end', function () {
                 console.log('获取token结束')

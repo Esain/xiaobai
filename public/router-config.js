@@ -25,11 +25,11 @@ function randomString(len) {
 　　return pwd;
 };
 
-require(['spa','fastclick', 'zepto'], function(vipspa, FastClick, $) {
-     $(function() {
-            FastClick.attach(document.body);
-        });
-          
+require(['spa', 'fastclick', 'zepto', 'cookie'], function(vipspa, FastClick, $, Cookie) {
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    alert(Cookie.getCookie('openID'));
     vipspa.start({
         view: '#ui-view',
         router: {
