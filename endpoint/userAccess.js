@@ -13,6 +13,7 @@ module.exports = function (req, resp, param, next) {
         .on('response', function (response) {
             if (response.errcode) {
                 console.error(`获取token失败${response.errcode} ---- ${response.errmsg}`);
+                req.send('error')
             } else {
                 req.session.openID = response.openid;
             }
@@ -21,5 +22,6 @@ module.exports = function (req, resp, param, next) {
         .on('end', function () {
             console.log('获取token结束')
         })
+        
     
 }

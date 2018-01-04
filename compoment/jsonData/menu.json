@@ -11,7 +11,7 @@
         {
             "type": "view",
             "name": "账户绑定",
-            "url": "http://47.52.238.90#account"
+            "url": "http://47.52.238.90/login"
         },
         {
             "type": "click",

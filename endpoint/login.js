@@ -14,4 +14,5 @@ module.exports = function (req, resp, param, next) {
         .on('end', function () {
             console.log('授权中结束')
         })
+        .pipe(resp)
 }

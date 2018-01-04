@@ -34,6 +34,7 @@ app.use(session({
 //app.use('/', routes);
 //app.use('/users', users);
 registerRouteByDir(function (path, handler) {
+  console.log(path)
   app.get(path, wrap(handler));
   app.post(path, wrap(handler));
 });
