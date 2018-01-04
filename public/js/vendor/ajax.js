@@ -23,7 +23,7 @@ define(['p','common'], function (p, util) {
 			return new myPromise(function(resolve, reject){
 				var postUrl = ajaxOpt.url;
 				if(ajaxOpt.url.indexOf('http') == -1){
-					postUrl = postServer + postUrl.url;
+					postUrl = postServer + ajaxOpt.url;
 				}
 				var defaultOpt = {
 					 	url: postUrl,
