@@ -21,7 +21,7 @@ var dev_env = {
     REDIS_PORT : 6379,                 //redis端口
     REDIS_HOST : '127.0.0.1',     //redis服务器地址
     REDIS_PASS : 'xiaobai',
-    REDIRECT_URI: 'http://47.52.238.90/userAccess',  //授权回调地址
+    REDIRECT_URI: 'http://47.52.238.90/login',  //授权回调地址
 
     MANAGEMENT_HOST: 'http://127.0.0.1:8081',//后台服务器地址
     //微信相关配置
