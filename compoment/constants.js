@@ -20,7 +20,7 @@ var constants = function () {
 	this.AUTH_URL = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${env.WEI_XIN_APP_ID}&redirect_uri=${encodeURIComponent(env.REDIRECT_URI)}&response_type=code&scope=snsapi_base&state=test11#wechat_redirect`;
 	
 	this.getAuthAccessUrl = function (code) {
-		return `${this.POST_HOST}sns/oauth2/access_token?appid=APPID&secret=SECRET&code=${code}&grant_type=authorization_code`;
+		return `${this.POST_HOST}sns/oauth2/access_token?appid=${env.WEI_XIN_APP_ID}&secret=SECRET&code=${code}&grant_type=authorization_code`;
 	}
 }
 var obj = new constants();
