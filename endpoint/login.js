@@ -20,7 +20,7 @@ module.exports = function (req, resp, param, next) {
                         var error = new Error('获取token失败')
                         next(error);
                     } else {
-                        resp.cookie('openID', reqObj.openid);
+                        resp.cookie('openID', reqObj.openid, { maxAge: 72000 });
                         resp.redirect('/');
                     }
                 }
