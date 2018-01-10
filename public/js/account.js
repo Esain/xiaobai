@@ -6,5 +6,4 @@ require([
         .then(function (data) {
             alert(data);
         });
-    
 });
