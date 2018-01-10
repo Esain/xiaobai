@@ -1,15 +1,11 @@
 #!/bin/bash
-[[ $1 != '' ]] && WEB_PATH=$1
-
-[[ $WEB_PATH = '' ]] && WEB_PATH='/root/yangyx/xiaobai/public'
+WEB_PATH='/root/yangyx/xiaobai'
 
 echo $WEB_PATH
 
-[[ $2 != '' ]] && BRANCH=$2
+BRANCH='master'
 
-[[ $BRANCH = '' ]] && BRANCH='master'
-
-echo $BRANCH
+echo $g
 
 echo "Start deployment"
 cd $WEB_PATH
