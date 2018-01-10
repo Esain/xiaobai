@@ -3,7 +3,7 @@ var request = require('request');
 const spawn = require('child_process').spawn
 
 module.exports = function (req, resp, param, next) {
-    var push_name = req.sender.login;
+    var push_name = param.sender.login;
     var exec_path = path.join( process.cwd(), 'deploy.sh');
     if(push_name === 'Esain' || push_name === 'perany'){
     	const args = [exec_path]
