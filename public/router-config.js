@@ -10,7 +10,8 @@ requirejs.config({
         'common': 'common',
         'cookie': 'cookie',
         'p': 'promise.polyfill',
-        'ajax': 'ajax'
+        'ajax': 'ajax',
+        'md5':'md5.min'
     }
 });
 
