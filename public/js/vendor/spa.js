@@ -1,4 +1,4 @@
-define(['zepto'], function($) {
+define(['zepto','ajax','md5'], function($,ajax,md5) {
 
     function Vipspa() {
 
@@ -126,10 +126,28 @@ define(['zepto'], function($) {
         }
 
         if (routerItem.requireAuth) {
-            var cookie = getCookie('account');
+            /* var cookie = getCookie('account');
             if (!cookie || cookie != 'kdc-test') {
                 location.hash = 'binding';
-            }
+            } */
+            //查询宝宝信息以确认用户是否已经绑定
+            var keystr = md5.md5(valuestr);
+            var valuestr = "8d98b93a0d4e1777acb36d4404c61854" + JSON.stringify({
+                openID: getCookie('account')
+            });
+            ajax.ajaxPost('/baymin/getbabyinfo',{
+                key: keystr,
+                value: valuestr
+            }).then(function (data) {
+                /* switch (data.code) {   //todo
+                    case value:
+                        
+                        break;
+                
+                    default:
+                        break;
+                } */
+            });
         }
         $.ajax({
             type: 'GET',

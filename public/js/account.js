@@ -7,4 +7,7 @@ require([
         .then(function (data) {
             alert(data);
         });
+
+    //查询宝宝信息
+    
 });
