@@ -1,19 +1,19 @@
 #!/bin/bash
-WEB_PATH='/root/yangyx/xiaobai'
+#WEB_PATH='/root/yangyx/xiaobai'
 
-echo $WEB_PATH
+#echo $WEB_PATH
 
-BRANCH='master'
+#BRANCH='master'
 
-echo $g
+#echo "branch : $BRANCH"
 
 echo "Start deployment"
-cd $WEB_PATH
+cd /root/yangyx/xiaobai
 echo "pulling source code..."
 
 # `git fetch origin -v`
 # `git pull`
-git reset --hard origin/$BRANCH
+git reset --hard origin/master
 sudo git clean -f
 git pull
 # git checkout $BRANCH
