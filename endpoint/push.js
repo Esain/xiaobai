@@ -10,8 +10,8 @@ module.exports = function (req, resp, param, next) {
     	runCmd('sh', args, (text) => {
 		    console.log(text)
 		})
-		res.status(200)
-  		res.end()
+		resp.status(200)
+  		resp.end()
     }else{
     	resp.status(404);
     	resp.end();
