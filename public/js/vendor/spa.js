@@ -124,30 +124,42 @@ define(['zepto','ajax','md5'], function($,ajax,md5) {
             location.hash = defaultsRoute;
             return false;
         }
-
-        if (routerItem.requireAuth) {
+        if (!routerItem.requireAuth) {
             /* var cookie = getCookie('account');
             if (!cookie || cookie != 'kdc-test') {
                 location.hash = 'binding';
             } */
-            //查询宝宝信息以确认用户是否已经绑定
-            var keystr = md5.md5(valuestr);
-            var valuestr = "8d98b93a0d4e1777acb36d4404c61854" + JSON.stringify({
-                openID: getCookie('account')
-            });
-            ajax.ajaxPost('/baymin/getbabyinfo',{
-                key: keystr,
-                value: valuestr
-            }).then(function (data) {
-                /* switch (data.code) {   //todo
-                    case value:
-                        
-                        break;
-                
-                    default:
-                        break;
-                } */
-            });
+            //判断是否已经绑定
+            if (localStorage.getItem("isBinded")==undefined){
+                localStorage.setItem("isBinded", "false");
+            }
+            if(localStorage.getItem("isBinded")=="false"){
+                var valuestr = JSON.stringify({
+                    openID: '1234'
+                });
+                var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
+                // openID: getCookie('account')
+                ajax.ajaxPost('http://192.168.90.23:8079/baymin/checkbind', {
+                    key: keystr,
+                    value: valuestr
+                }).then(function (res) {
+                    switch (res.status) {
+                        case 4:   //此微信账号已经绑定过了
+                            localStorage.setItem("openID", res.data[0]["openID"]);
+                            localStorage.setItem("isBinded", "true");
+                            location.hash = 'account';
+                            break;
+                        case 0:   //此微信号未绑定账号
+                            location.hash = 'binding';
+                            break;
+                        default:
+                            location.hash = 'binding';
+                            break;
+                    };
+                }, function (error) {
+                    console.log(error);
+                }).catch(function (error) { });
+            }
         }
         $.ajax({
             type: 'GET',

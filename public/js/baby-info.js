@@ -1,5 +1,18 @@
-require(['zepto', 'weui'], function($, weui) {
+require(['zepto', 'weui','ajax','md5','common'], function($, weui,ajax,md5,util) {
+    var isChanged = false;
+
+    if (localStorage.isBinded && localStorage.cname && localStorage.sex && localStorage.birthday && localStorage.relation) {
+        $("#baby-name").val(localStorage.cname);
+        $("#gender .weui-cell__bd .val").text(localStorage.sex);
+        $("#age .weui-cell__bd .val").text(localStorage.birthday);
+        $("#family .weui-cell__bd .val").text(localStorage.relation);
+        $(".weui-btn").text("完成");
+    } else {
+        $(".weui-btn").text("下一步");
+    }
+
     $('#gender').on('click', function() {
+        isChanged = true;
         weui.picker([{
             label: '小王子',
             value: 0
@@ -14,6 +27,7 @@ require(['zepto', 'weui'], function($, weui) {
         });
     });
     $('#family').on('click', function() {
+        isChanged = true;
         weui.picker([{
             label: '爸爸',
             value: 0
@@ -31,6 +45,7 @@ require(['zepto', 'weui'], function($, weui) {
         });
     });
     $('#age').on('click', function() {
+        isChanged = true;
         weui.datePicker({
             start: new Date().getFullYear() - 5,
             end: new Date().getFullYear(),
@@ -40,4 +55,56 @@ require(['zepto', 'weui'], function($, weui) {
             }
         });
     });
+
+    $(".weui-btn").click(function(){
+        event.preventDefault();
+        if ($(this).text() =="完成"){
+            if(isChanged){
+                modifyBabyInfo();
+            }else{
+                location.hash = "account";
+            }
+        }else{
+            location.hash = "task";
+        }
+    });
+
+    function modifyBabyInfo(){
+        var bname = $("#baby-name").val();
+        var bsex = $("#gender .weui-cell__bd .val").text();
+        var bage = $("#age .weui-cell__bd .val").text();
+        var brela = $("#family .weui-cell__bd .val").text();
+        var valuestr = JSON.stringify({
+            openID:localStorage.openID,
+            cname: bname,
+            sex: bsex,
+            birthday: bage,
+            relation: brela
+        });
+        ajax.ajaxPost('http://192.168.90.23:8079/baymin/setbabyinfo', {
+            key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
+            value: valuestr
+        }).then(function (res) {
+            switch (res.status) {
+                case 0: //成功
+                    localStorage.setItem("relation", brela);
+                    localStorage.setItem("cname", bname);
+                    localStorage.setItem("birthday", bage);
+                    localStorage.setItem("sex", bsex);
+                    location.hash = "account";
+                    break;
+                default:
+                    util.warningTip({
+                        title: '设置宝宝信息失败',
+                        context: res.msg,
+                        cb: function () {
+                        }
+                    })
+                    break;
+            };
+        }, function (error) {
+            console.log(error);
+        }).catch(function (error) { });
+
+    }
 })

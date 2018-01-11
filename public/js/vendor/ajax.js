@@ -5,7 +5,7 @@ define(['p','common'], function (p, util) {
 			var ajaxOpt = {
 				type: 'POST',
 				url: url,
-				data: JSON.string(param)
+				data: param
 			}
 			return this.ajax(ajaxOpt)
 		},
@@ -29,7 +29,7 @@ define(['p','common'], function (p, util) {
 					  	error: error,
 					  	complete: complete,
 					  	beforeSend: beforeSend,
-					  	contentType:'application/json',
+					  	// contentType:'application/json',
 					  	// headers: {
 					  	// 	'token': token
 					  	// },
@@ -44,25 +44,22 @@ define(['p','common'], function (p, util) {
 				$.ajax(ajaxOpt);
 				
 				function success(data){
-					
-					if(data.code == 0|| data.code == null){
-						resolve(data.data);
-					}else if(data.code == -1){
-						reject(data.message);
-						t.loginErrPage();
+					if (data.msg){
+						resolve(data);
 					}else{
-						util.warningTip({
-							title: '错误信息',
-							context:data.message,
-						});
+						// util.warningTip({
+						// 	title: '错误信息',
+						// 	context:data.message,
+						// });
 						reject(data.message);
+						// t.loginErrPage();
 					}
 				}
 				function error(XMLHttpRequest, textStatus){
-					util.warningTip({
-						title: '错误信息',
-						context: '网络异常,请稍后再试',
-					});
+					// util.warningTip({
+					// 	title: '错误信息',
+					// 	context: '网络异常,请稍后再试',
+					// });
 					
 					reject(JSON.stringify(XMLHttpRequest));
 				}
