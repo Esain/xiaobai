@@ -14,7 +14,6 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     function renderPgaes() {
         actions.forEach(function(item){
             var tpl = getTpl(item)
-
             $('.task').find('.main-panel').append(tpl);
         }); 
 
@@ -107,8 +106,6 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
         }).catch(function (error) { });
     }
 
@@ -130,7 +127,6 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
                     localStorage.setItem("cname", bname);
                     localStorage.setItem("birthday", bage);
                     localStorage.setItem("sex", bsex);
-                    location.hash = "account";
                     break;
                 default:
                     util.warningTip({
@@ -141,14 +137,12 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
         }).catch(function (error) { });
     }
 
     getTask();
 
-    $(".check").click(function() {
+    $(".task .check").click(function() {
         location.hash = "account";
     });
 })

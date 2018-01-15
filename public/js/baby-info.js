@@ -60,11 +60,11 @@ require(['zepto', 'weui','ajax','md5','common'], function($, weui,ajax,md5,util)
         event.preventDefault();
         if ($(this).text() =="完成"){
             if(isChanged){
-                modifyBabyInfo();
-            }else{
-                location.hash = "account";
+                modifyBabyInfo();   
             }
+            location.hash = "account";
         }else{
+            modifyBabyInfo();
             location.hash = "task";
         }
     });
@@ -91,7 +91,6 @@ require(['zepto', 'weui','ajax','md5','common'], function($, weui,ajax,md5,util)
                     localStorage.setItem("cname", bname);
                     localStorage.setItem("birthday", bage);
                     localStorage.setItem("sex", bsex);
-                    location.hash = "account";
                     break;
                 default:
                     util.warningTip({
@@ -102,8 +101,6 @@ require(['zepto', 'weui','ajax','md5','common'], function($, weui,ajax,md5,util)
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
         }).catch(function (error) { });
 
     }

@@ -156,8 +156,6 @@ define(['zepto','ajax','md5'], function($,ajax,md5) {
                             location.hash = 'binding';
                             break;
                     };
-                }, function (error) {
-                    console.log(error);
                 }).catch(function (error) { });
             }
         }

@@ -43,8 +43,6 @@ require([
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
         }).catch(function (error) { });
     }
 
@@ -80,8 +78,6 @@ require([
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
         }).catch(function (error) { });
     }
 

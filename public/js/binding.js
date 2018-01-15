@@ -48,6 +48,36 @@ require(['zepto', 'cookie','common','ajax','md5'], function ($, cookie,util,ajax
         }).catch(function (error) {});
     });
 
+    //表单校验
+    function check($dom, expr) {
+        var num = $dom.val();
+        if (expr.test(num)) {
+            $dom.parents(".weui-cell").removeClass("weui-cell_warn");
+            $dom.parents(".weui-cell").find(".weui-icon-warn").hide();
+        } else {
+            $dom.parents(".weui-cell").addClass("weui-cell_warn");
+            $dom.parents(".weui-cell").find(".weui-icon-warn").show();
+        }
+    }
+    $(".account-mobile").blur(function () {
+        check($(this), /^1[3|4|5|7|8][0-9]{9}$/);
+    });
+    $(".account-num").blur(function () {
+        check($(this), /^[0-9][0-9]*$/);
+    });
+    $(".vcode").blur(function () {
+        check($(this), /^[0-9][0-9]*$/);
+    });
+
+    //点击查看示例
+    $(".weui-account-btn").click(function(){
+        $(".weui-gallery").show();
+        $('.weui-gallery span').css('background-image', "url(/imgs/timg.jpg)");
+    });
+    $(".weui-gallery__cancel").click(function () {
+        $(".weui-gallery").hide();
+    });
+    
     //绑定请求
     function bingingRequest(acountNum, mobile, vcode) {
         var valuestr = JSON.stringify({
@@ -79,8 +109,6 @@ require(['zepto', 'cookie','common','ajax','md5'], function ($, cookie,util,ajax
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
         }).catch(function (error) {});
     }
 
