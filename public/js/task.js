@@ -13,7 +13,6 @@ require(['zepto','weui'], function($, weui){
     function renderPgaes() {
         actions.forEach(function(item){
             var tpl = getTpl(item)
-
             $('.task').find('.main-panel').append(tpl);
         }); 
 
@@ -64,5 +63,78 @@ require(['zepto','weui'], function($, weui){
         return arr
     }
 
+<<<<<<< HEAD
     renderPgaes();
+=======
+    function getTask(){
+        var valuestr = JSON.stringify({
+            openID: localStorage.openID,
+        });
+        ajax.ajaxPost('http://192.168.90.23:8079/baymin/gethabits', {
+            key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
+            value: valuestr
+        }).then(function (res) {
+            switch (res.status) {
+                case 0: //成功
+                    actions = [];
+                    $(res.data).each(function(idx,val) {
+                        //{"id":2,"accountNumber":"0001","action":"洗澡","time":"7点"}
+                        actions.push({
+                            label: val.action,
+                            value: val.id,
+                            time: val.time
+                        })
+                        accountNumber = val.accountNumber;
+                    });
+                    renderPgaes();
+                    break;
+                default:
+                    util.warningTip({
+                        title: '获取养成时间列表失败',
+                        context: res.msg,
+                        cb: function () {
+                        }
+                    })
+                    break;
+            };
+        }).catch(function (error) { });
+    }
+
+    function modifyTask(oldaction, oldtime, newaction, newtime) {
+        var valuestr = JSON.stringify({
+            accountNumber: accountNumber,
+            action: oldaction,
+            time: oldtime,
+            newAction: newaction,
+            newTime: newtime
+        });
+        ajax.ajaxPost('http://192.168.90.23:8079/baymin/updatehabit', {
+            key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
+            value: valuestr
+        }).then(function (res) {
+            switch (res.status) {
+                case 0: //成功
+                    localStorage.setItem("relation", brela);
+                    localStorage.setItem("cname", bname);
+                    localStorage.setItem("birthday", bage);
+                    localStorage.setItem("sex", bsex);
+                    break;
+                default:
+                    util.warningTip({
+                        title: '设置宝宝信息失败',
+                        context: res.msg,
+                        cb: function () {
+                        }
+                    })
+                    break;
+            };
+        }).catch(function (error) { });
+    }
+
+    getTask();
+
+    $(".task .check").click(function() {
+        location.hash = "account";
+    });
+>>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
 })

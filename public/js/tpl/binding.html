@@ -3,28 +3,30 @@
         <a class="pull-left left-icon iconfont" onclick="back()">&#xe623;</a>
         <span>绑定账户</span>
     </div> -->
-   
+
     <div class="main-panel">
         <div class="weui-cells__title">账户信息</div>
         <div class="weui-cells weui-cells_form">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">账户编号</label></div>
+            <div class="weui-cell weui-cell_account">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">账户编号</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input account-num" type="number" pattern="[0-9]*" placeholder="请输入..." value="">
+                    <input class="weui-input account-num" type="text" placeholder="请输入..." value="">
                 </div>
                 <div class="weui-cell__ft">
                     <i class="weui-icon-warn"></i>
                 </div>
                 <div class="weui-cell_ft">
-                    <img src="">
+                    <button class="weui-account-btn">查看示例</button>
                 </div>
             </div>
-            <div class="weui-cell weui-cell_vcode weui-cell_warn">
+            <div class="weui-cell weui-cell_vcode">
                 <div class="weui-cell__hd">
                     <label class="weui-label">注册手机号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input account-mobile" type="tel" placeholder="请输入手机号" value="" pattern="^(13[0-9]|14[579]|15[0-3,5-9]|17[0135678]|18[0-9])\\d{8}$">
+                    <input class="weui-input account-mobile" type="text" placeholder="请输入手机号" value="">
                 </div>
                 <div class="weui-cell__ft">
                     <i class="weui-icon-warn"></i>
@@ -34,7 +36,9 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+                <div class="weui-cell__hd">
+                    <label class="weui-label">验证码</label>
+                </div>
                 <div class="weui-cell__bd">
                     <input class="weui-input vcode" type="text" placeholder="请输入..." value="">
                 </div>
@@ -44,8 +48,19 @@
             </div>
         </div>
     </div>
-    
+
     <div class="btn-wrap">
         <a class="weui-btn weui-btn_primary check">确定</a>
+    </div>
+
+    <div class="page gallery">
+        <div class="weui-gallery" style="display: none">
+            <span class="weui-gallery__img" style="background-image: url(./images/pic_article.png);"></span>
+            <div class="weui-gallery__opr">
+                <a href="javascript:" class="weui-gallery__cancel">
+                    <i class="weui-icon-cancel"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </section>

@@ -30,10 +30,16 @@ require(['spa', 'fastclick', 'zepto', 'cookie'], function(vipspa, FastClick, $, 
     $(function() {
         FastClick.attach(document.body);
     });
-    alert(Cookie.getCookie('openID'));
+    // alert(Cookie.getCookie('openID'));
     vipspa.start({
         view: '#ui-view',
         router: {
+            'account': {
+                templateUrl: 'js/tpl/account.html',
+                controller: 'js/account.js?v=' + stamp,
+                requireAuth: false,
+                title: '用户设置'
+            },
             '': {
                 templateUrl: 'js/tpl/account.html',
                 controller: 'js/account.js?v=' + stamp,

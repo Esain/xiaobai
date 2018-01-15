@@ -5,7 +5,7 @@ var env = require("../compoment/env.js");
 var crypto = require("crypto");
 var parseString = require("xml2js").parseString;
 var wxmsg = require("../compoment/wxmsg.js");
-var redisUtil = require(path.join(process.cwd(),"compoment/redisUtil.js"));
+// var redisUtil = require(path.join(process.cwd(),"compoment/redisUtil.js"));
 
 module.exports = function (req,resp,param,next){
 	// console.log(param);
@@ -43,29 +43,29 @@ function processMsg(req,resp,next){
 			
 			var msgId  = user_msg.MsgId;
 			var createTime = user_msg.CreateTime;
-			redisUtil.redisMsg.get(msgId+"_"+createTime,function (err,value){
-				if(value){
-					resp.send("success");
-				}else{
-					redisUtil.redisMsg.set(msgId+"_"+createTime,"in",8000);
+			// redisUtil.redisMsg.get(msgId+"_"+createTime,function (err,value){
+			// 	if(value){
+			// 		resp.send("success");
+			// 	}else{
+			// 		redisUtil.redisMsg.set(msgId+"_"+createTime,"in",8000);
 
-					var msgType = user_msg.MsgType;
-					switch(msgType){
-						case 'event':
-							wxmsg.processEvent(user_msg,req,resp,next);break;
-						case 'text':
-							wxmsg.processMsg(user_msg,req,resp,next); 
-							break;
-						case 'image':
-							// wxmsg.processImage(user_msg,req,resp,next);
-						break;
-						case 'video':break;
-						case 'location':break;
-						case 'link':break;
-						case 'voice':break;
-					} 
-				}
-			});
+			// 		var msgType = user_msg.MsgType;
+			// 		switch(msgType){
+			// 			case 'event':
+			// 				wxmsg.processEvent(user_msg,req,resp,next);break;
+			// 			case 'text':
+			// 				wxmsg.processMsg(user_msg,req,resp,next); 
+			// 				break;
+			// 			case 'image':
+			// 				// wxmsg.processImage(user_msg,req,resp,next);
+			// 			break;
+			// 			case 'video':break;
+			// 			case 'location':break;
+			// 			case 'link':break;
+			// 			case 'voice':break;
+			// 		} 
+			// 	}
+			// });
 		});
 	})
 }

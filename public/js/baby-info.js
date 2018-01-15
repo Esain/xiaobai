@@ -40,4 +40,56 @@ require(['zepto', 'weui'], function($, weui) {
             }
         });
     });
+<<<<<<< HEAD
+=======
+
+    $(".weui-btn").click(function(){
+        event.preventDefault();
+        if ($(this).text() =="完成"){
+            if(isChanged){
+                modifyBabyInfo();   
+            }
+            location.hash = "account";
+        }else{
+            modifyBabyInfo();
+            location.hash = "task";
+        }
+    });
+
+    function modifyBabyInfo(){
+        var bname = $("#baby-name").val();
+        var bsex = $("#gender .weui-cell__bd .val").text();
+        var bage = $("#age .weui-cell__bd .val").text();
+        var brela = $("#family .weui-cell__bd .val").text();
+        var valuestr = JSON.stringify({
+            openID:localStorage.openID,
+            cname: bname,
+            sex: bsex,
+            birthday: bage,
+            relation: brela
+        });
+        ajax.ajaxPost('http://192.168.90.23:8079/baymin/setbabyinfo', {
+            key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
+            value: valuestr
+        }).then(function (res) {
+            switch (res.status) {
+                case 0: //成功
+                    localStorage.setItem("relation", brela);
+                    localStorage.setItem("cname", bname);
+                    localStorage.setItem("birthday", bage);
+                    localStorage.setItem("sex", bsex);
+                    break;
+                default:
+                    util.warningTip({
+                        title: '设置宝宝信息失败',
+                        context: res.msg,
+                        cb: function () {
+                        }
+                    })
+                    break;
+            };
+        }).catch(function (error) { });
+
+    }
+>>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
 })
