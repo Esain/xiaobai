@@ -7,8 +7,6 @@ require([
         .then(function (data) {
             alert(data);
         });
-<<<<<<< HEAD
-=======
         var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
         // openID: getCookie('account')
         ajax.ajaxPost('http://192.168.90.23:8079/baymin/getbabyinfo', {
@@ -71,7 +69,6 @@ require([
             };
         }).catch(function (error) { });
     }
->>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
 
     //查询宝宝信息
     

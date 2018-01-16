@@ -40,8 +40,6 @@ require(['zepto', 'weui'], function($, weui) {
             }
         });
     });
-<<<<<<< HEAD
-=======
 
     $(".weui-btn").click(function(){
         event.preventDefault();
@@ -91,5 +89,4 @@ require(['zepto', 'weui'], function($, weui) {
         }).catch(function (error) { });
 
     }
->>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
 })

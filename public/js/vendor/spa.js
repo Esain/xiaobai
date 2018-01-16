@@ -130,26 +130,6 @@ define(['zepto','ajax','md5'], function($,ajax,md5) {
             if (!cookie || cookie != 'kdc-test') {
                 location.hash = 'binding';
             } */
-<<<<<<< HEAD
-            //查询宝宝信息以确认用户是否已经绑定
-            var keystr = md5.md5(valuestr);
-            var valuestr = "8d98b93a0d4e1777acb36d4404c61854" + JSON.stringify({
-                openID: getCookie('account')
-            });
-            ajax.ajaxPost('/baymin/getbabyinfo',{
-                key: keystr,
-                value: valuestr
-            }).then(function (data) {
-                /* switch (data.code) {   //todo
-                    case value:
-                        
-                        break;
-                
-                    default:
-                        break;
-                } */
-            });
-=======
             //判断是否已经绑定
             if (localStorage.getItem("isBinded")==undefined){
                 localStorage.setItem("isBinded", "false");
@@ -179,7 +159,6 @@ define(['zepto','ajax','md5'], function($,ajax,md5) {
                     };
                 }).catch(function (error) { });
             }
->>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
         }
         $.ajax({
             type: 'GET',

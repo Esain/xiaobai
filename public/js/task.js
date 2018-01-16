@@ -63,9 +63,6 @@ require(['zepto','weui'], function($, weui){
         return arr
     }
 
-<<<<<<< HEAD
-    renderPgaes();
-=======
     function getTask(){
         var valuestr = JSON.stringify({
             openID: localStorage.openID,
@@ -136,5 +133,4 @@ require(['zepto','weui'], function($, weui){
     $(".task .check").click(function() {
         location.hash = "account";
     });
->>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
 })

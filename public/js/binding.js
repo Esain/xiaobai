@@ -14,8 +14,6 @@ require(['zepto', 'cookie'], function($, cookie) {
             }
         })
 
-<<<<<<< HEAD
-=======
     //获取验证码
     $(".weui-vcode-btn").click(function () {
         var phone = $(".account-mobile").val();
@@ -110,6 +108,5 @@ require(['zepto', 'cookie'], function($, cookie) {
     }
 
 
->>>>>>> a559fdacd920b86bb9c410eba43f120e4d0d96ee
 
 })
