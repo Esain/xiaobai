@@ -15,7 +15,7 @@
 var dev_env = {
     name: 'dev',
     sms:1,                              //短信
-    SEVER_LISTEN_PORT:8080,            //服务器监听端口
+    SEVER_LISTEN_PORT:80,            //服务器监听端口
 
     //redis
     REDIS_PORT : 6379,                 //redis端口
