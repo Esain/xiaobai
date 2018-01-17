@@ -79,10 +79,6 @@ app.all('*', function (req, res, next) {
   next();
 });
 
-app.get('/auth/:id/:password', function (req, res) {
-  res.send({ id: req.params.id, name: req.params.password });
-});
-
 app.listen(8079);
 console.log('Listening on port 8079...');
 
