@@ -56,11 +56,10 @@ define(['p', 'common'], function (p, util) {
 					}
 				}
 				function error(XMLHttpRequest, textStatus) {
-					// util.warningTip({
-					// 	title: '错误信息',
-					// 	context: '网络异常,请稍后再试',
-					// });
-
+					util.warningTip({
+						title: '错误信息',
+						context: '网络异常,请稍后再试',
+					});
 					reject(JSON.stringify(XMLHttpRequest));
 				}
 				function complete() {
