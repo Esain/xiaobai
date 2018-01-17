@@ -1,5 +1,5 @@
 define(['p', 'common'], function (p, util) {
-	var postServer = '/';
+	var postServer = 'http://47.52.238.90:8079/';
 	return {
 		ajaxPost: function (url, param) {
 			var ajaxOpt = {
