@@ -150,6 +150,7 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
                             location.hash = 'account';
                             break;
                         case 0:   //此微信号未绑定账号
+                            localStorage.setItem("openID", res.data[0]["openID"]);
                             location.hash = 'binding';
                             break;
                         default:
