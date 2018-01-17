@@ -63,8 +63,10 @@ define(['p', 'common'], function (p, util) {
 						title: '错误信息',
 						context: '网络异常,请稍后再试',
 						cb:function() {
-							// WeixinJSBridge.invoke('closeWindow', {}, function (res) { })
-							WeixinJSBridge.call('closeWindow');
+							// WeixinJSBridge.call('closeWindow');
+							WeixinJSBridge.invoke('closeWindow', {}, function (res) {
+								console.log(res.err_msg);
+							});
 						}
 					});
 					reject(JSON.stringify(XMLHttpRequest));
