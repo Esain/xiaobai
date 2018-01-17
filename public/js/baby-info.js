@@ -81,7 +81,7 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
             birthday: bage,
             relation: brela
         });
-        ajax.ajaxPost('/baymin/setbabyinfo', {
+        ajax.ajaxPost('baymin/setbabyinfo', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
             value: valuestr
         }).then(function (res) {

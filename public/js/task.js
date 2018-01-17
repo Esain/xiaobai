@@ -79,7 +79,7 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
         var valuestr = JSON.stringify({
             openID: localStorage.openID,
         });
-        ajax.ajaxPost('/baymin/gethabits', {
+        ajax.ajaxPost('baymin/gethabits', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
             value: valuestr
         }).then(function (res) {
@@ -117,7 +117,7 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
             newAction: newaction,
             newTime: newtime
         });
-        ajax.ajaxPost('/baymin/updatehabit', {
+        ajax.ajaxPost('baymin/updatehabit', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
             value: valuestr
         }).then(function (res) {
