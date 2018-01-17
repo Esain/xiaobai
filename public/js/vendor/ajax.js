@@ -51,7 +51,7 @@ define(['p', 'common'], function (p, util) {
 							title: '错误信息',
 							context: '网络异常,请稍后再试',
 							cb: function () {
-								location.hash = "bind";
+								WeixinJSBridge.call('closeWindow');
 							}
 						});
 						reject(data.message);
@@ -63,7 +63,7 @@ define(['p', 'common'], function (p, util) {
 						title: '错误信息',
 						context: '网络异常,请稍后再试',
 						cb:function() {
-							location.hash = "bind";
+							WeixinJSBridge.invoke('closeWindow', {}, function (res) { })
 						}
 					});
 					reject(JSON.stringify(XMLHttpRequest));
