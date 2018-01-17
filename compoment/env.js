@@ -15,13 +15,13 @@
 var dev_env = {
     name: 'dev',
     sms:1,                              //短信
-    SEVER_LISTEN_PORT:80,            //服务器监听端口
+    SEVER_LISTEN_PORT:8079,            //服务器监听端口
 
     //redis
     REDIS_PORT : 6379,                 //redis端口
     REDIS_HOST : '127.0.0.1',     //redis服务器地址
     REDIS_PASS : 'xiaobai',
-    REDIRECT_URI: 'http://47.52.238.90:8079/login',  //授权回调地址
+    REDIRECT_URI: 'http://47.52.238.90/login',  //授权回调地址
 
     MANAGEMENT_HOST: 'http://127.0.0.1:8081',//后台服务器地址
     //微信相关配置
@@ -34,7 +34,7 @@ var dev_env = {
 var online_env = {
     name :'online',
     sms:0,                                            //短信
-    SEVER_LISTEN_PORT: 80,            //服务器监听端口
+    SEVER_LISTEN_PORT: 8079,            //服务器监听端口
     //redis
     REDIS_PORT : 6379,                 //redis端口
     REDIS_HOST : '127.0.0.1',     //redis服务器地址
