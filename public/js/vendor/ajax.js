@@ -39,6 +39,7 @@ define(['p', 'common'], function (p, util) {
 
 				if (ajaxOpt.url.indexOf('http') == -1) {
 					postUrl = postServer + ajaxOpt.url;
+					ajaxOpt.url = postUrl;
 					console.log(postUrl);
 				}
 
