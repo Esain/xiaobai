@@ -20,7 +20,7 @@ require([
         });
         var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
         // openID: getCookie('account')
-        ajax.ajaxPost('http://192.168.90.23:8079/baymin/getbabyinfo', {
+        ajax.ajaxPost('/baymin/getbabyinfo', {
             key: keystr,
             value: valuestr
         }).then(function (res) {
@@ -53,7 +53,7 @@ require([
         });
         var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
         // openID: getCookie('account')
-        ajax.ajaxPost('http://192.168.90.23:8079/baymin/unbind', {
+        ajax.ajaxPost('/baymin/unbind', {
             key: keystr,
             value: valuestr
         }).then(function (res) {

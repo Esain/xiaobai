@@ -25,7 +25,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
         var valuestr = JSON.stringify({
             username: phone
         });
-        ajax.ajaxPost('http://192.168.90.23:8079/baymin/sendmsg', {
+        ajax.ajaxPost('/baymin/sendmsg', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
             value: valuestr
         }).then(function (data) {
@@ -86,7 +86,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
             md5Value: code,
             time: codetime
         });
-        ajax.ajaxPost('http://192.168.90.23:8079/baymin/bind', {
+        ajax.ajaxPost('/baymin/bind', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
             value: valuestr
         }).then(function (res) {
