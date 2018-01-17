@@ -378,9 +378,9 @@ textarea {
 }
 
 .babyInfo .weui-input {
-    width: 93%;
+    width: 97%;
     text-align: right;
-    padding-right: 7%;
+    padding-right: 3%;
 }
 
 .babyInfo .weui-cell__bd {
@@ -389,4 +389,15 @@ textarea {
 }
 .account .weui-cell_access .weui-cell__ft{
     padding-right:17px;
+}
+.weui-gallery {
+    background-color: #00000088;
+}
+.weui-icon-cancel {
+    color: #eee;
+    font-size: 50px;
+}
+.weui-gallery__opr {
+    background-color: #0D0D0D00;
+    line-height: 85px;
 }

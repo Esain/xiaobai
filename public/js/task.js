@@ -143,6 +143,11 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     getTask();
 
     $(".task .check").click(function () {
-        location.hash = "account";
+        if (localStorage.isBindedEnd=="true"&&localStorage.isBinded=="true"){
+            location.hash = "account";
+        }else{
+            localStorage.setItem("isBindedEnd", "true");
+            WeixinJSBridge.call('closeWindow');
+        }
     });
 })
