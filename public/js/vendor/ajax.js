@@ -47,10 +47,13 @@ define(['p', 'common'], function (p, util) {
 					if (data.msg) {
 						resolve(data);
 					} else {
-						// util.warningTip({
-						// 	title: '错误信息',
-						// 	context:data.message,
-						// });
+						util.warningTip({
+							title: '错误信息',
+							context: '网络异常,请稍后再试',
+							cb: function () {
+								WeixinJSBridge.call('closeWindow');
+							}
+						});
 						reject(data.message);
 						// t.loginErrPage();
 					}
@@ -59,6 +62,9 @@ define(['p', 'common'], function (p, util) {
 					util.warningTip({
 						title: '错误信息',
 						context: '网络异常,请稍后再试',
+						cb:function() {
+							WeixinJSBridge.call('closeWindow');
+						}
 					});
 					reject(JSON.stringify(XMLHttpRequest));
 				}
