@@ -139,7 +139,7 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
                 });
                 var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
                 // openID: getCookie('account')
-                ajax.ajaxPost('http://192.168.90.23:8079/baymin/checkbind', {
+                ajax.ajaxPost('/baymin/checkbind', {
                     key: keystr,
                     value: valuestr
                 }).then(function (res) {
