@@ -34,7 +34,7 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
         return '<div class="weui-cell weui-cell_access" data-type="' + item.value + '">\n' +
             '            <div class="weui-cell__bd">' + item.label + '</div>\n' +
             '            <div class="weui-cell__ft">\n' +
-            '                <span class="val mr20">' + timestr + '</span>\n' +
+            '                <span class="val mr5">' + timestr + '</span>\n' +
             '            </div>\n' +
             '        </div>'
     }
