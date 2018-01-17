@@ -1,16 +1,21 @@
-require(['zepto', 'cookie'], function($, cookie) {
-    //写cookies
-    $('.binding').find('.check')
+require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util, ajax, md5) {
+    var codetime = "",
+        code = "";
+
+    //点击绑定
+    $('.binding .check')
         .off('click')
-        .on('click', function() {
+        .on('click', function () {
             var acountNum = $('.account-num').val();
             var mobile = $('.account-mobile').val();
-            var vcode = $('.vcode').val;
+            var vcode = $('.vcode').val();
             if (acountNum && mobile && vcode) {
-                setCookie('account', 'kdc-test')
-                location.hash = 'baby/info';
+                bingingRequest(acountNum, mobile, vcode);
             } else {
-                $('.weui-tips').removeClass('hide');
+                util.warningTip({
+                    title: '提示',
+                    context: '请完整填写有效信息',
+                })
             }
         })
 
@@ -38,9 +43,7 @@ require(['zepto', 'cookie'], function($, cookie) {
                     })
                     break;
             };
-        }, function (error) {
-            console.log(error);
-        }).catch(function (error) {});
+        }).catch(function (error) { });
     });
 
     //表单校验
@@ -65,23 +68,23 @@ require(['zepto', 'cookie'], function($, cookie) {
     });
 
     //点击查看示例
-    $(".weui-account-btn").click(function(){
+    $(".weui-account-btn").click(function () {
         $(".weui-gallery").show();
         $('.weui-gallery span').css('background-image', "url(/imgs/timg.jpg)");
     });
     $(".weui-gallery__cancel").click(function () {
         $(".weui-gallery").hide();
     });
-    
+
     //绑定请求
     function bingingRequest(acountNum, mobile, vcode) {
         var valuestr = JSON.stringify({
             username: mobile,
             accountNumber: acountNum,
-            openID:localStorage.openID,
+            openID: localStorage.openID,
             checkNum: vcode,
-            md5Value:code,
-            time:codetime
+            md5Value: code,
+            time: codetime
         });
         ajax.ajaxPost('http://192.168.90.23:8079/baymin/bind', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
@@ -91,7 +94,7 @@ require(['zepto', 'cookie'], function($, cookie) {
                 case 0: //成功
                     localStorage.setItem("openID", res.data[0]["openID"]);
                     localStorage.setItem("accountNumber", res.data[0]["accountNumber"]);
-                    localStorage.setItem("isBinded","true");
+                    localStorage.setItem("isBinded", "true");
                     // setCookie('account', res.data[0]["openID"]);
                     location.hash = 'babyInfo';
                     break;
@@ -104,7 +107,7 @@ require(['zepto', 'cookie'], function($, cookie) {
                     })
                     break;
             };
-        }).catch(function (error) {});
+        }).catch(function (error) { });
     }
 
 

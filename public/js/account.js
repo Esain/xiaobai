@@ -1,11 +1,22 @@
 require([
     'require',
     'ajax',
-    'md5'
-], function(require, ajax,md5) {
-    ajax.ajaxGet('test')
-        .then(function (data) {
-            alert(data);
+    'md5',
+    'common'
+], function (require, ajax, md5, util) {
+
+    if (localStorage.isBinded == "true") {
+        getBabyInfo();
+    }
+
+    $(".check").click(function () {
+        unBind();
+    });
+
+    //查询宝宝信息
+    function getBabyInfo() {
+        var valuestr = JSON.stringify({
+            openID: localStorage.openID
         });
         var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
         // openID: getCookie('account')
@@ -49,7 +60,7 @@ require([
             switch (res.status) {
                 case 0:   //成功
                     localStorage.clear();
-                    localStorage.setItem("openID",res.data[0]["openID"]);
+                    localStorage.setItem("openID", res.data[0]["openID"]);
                     localStorage.setItem("isBinded", "false");
                     util.warningTip({
                         title: '解绑成功',
@@ -70,6 +81,4 @@ require([
         }).catch(function (error) { });
     }
 
-    //查询宝宝信息
-    
 });
