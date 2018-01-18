@@ -45,7 +45,7 @@ define(['p', 'common'], function (p, util) {
 				$.ajax(ajaxOpt);
 
 				function success(data) {
-					if (JSON.parse(data).msg) {
+					if (data.msg) {
 						resolve(data);
 					} else {
 						util.warningTip({

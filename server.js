@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 app.post('/*', urlencodedParser, function (req, res) {
     console.log("-------post请求-------");
-    res.setHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    res.setHeader('content-type', 'application/json;charset=UTF-8');
     var superagent = require('superagent');
     var sreq = superagent.post("http://47.52.238.90:8079" + req.url)
         .set('Content-Type', 'application/x-www-form-urlencoded')
