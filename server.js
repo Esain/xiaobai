@@ -1,13 +1,18 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+var app = express();
 
 // 创建 application/x-www-form-urlencoded 编码解析
 var urlencodedParser = bodyParser.urlencoded({
-    extended: false
+    extended: true
 })
 
 app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 app.post('/*', urlencodedParser, function (req, res) {
     console.log("-------post请求-------");
