@@ -46,7 +46,9 @@ define(['p', 'common'], function (p, util) {
 
 				function success(data) {
 					console.log(data);
-					if (data.msg) {
+					var json = JSON.parse(data);
+					console.log(json);
+					if (json.msg) {
 						resolve(data);
 					} else {
 						util.warningTip({
@@ -62,7 +64,7 @@ define(['p', 'common'], function (p, util) {
 				}
 				function error(XMLHttpRequest, textStatus) {
 					util.warningTip({
-						title: '错误信息2',
+						title: '错误信息',
 						context: '网络异常,请稍后再试',
 						cb:function() {
 							// WeixinJSBridge.call('closeWindow');
