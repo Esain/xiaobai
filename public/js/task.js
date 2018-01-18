@@ -147,7 +147,12 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
             location.hash = "account";
         }else{
             localStorage.setItem("isBindedEnd", "true");
-            WeixinJSBridge.call('closeWindow');
+            util.warningTip({
+                title: '设置成功',
+                context: "用户设置已完成！",
+                cb: function () {
+                }
+            })
         }
     });
 })
