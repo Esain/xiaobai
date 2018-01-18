@@ -14,16 +14,16 @@ app.use(bodyParser.json());
 
 app.post('/*', urlencodedParser, function (req, res) {
     console.log("-------post请求-------");
+    res.setHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var superagent = require('superagent');
     var sreq = superagent.post("http://47.52.238.90:8079" + req.url)
-        .set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
         .accept('application/json')
         .send(req.body);
     sreq.on("error", function (res) {
         console.log("error");
     });
     sreq.on("end",function(res){
-        res.status(200);
         console.log("end");
     });
     sreq.pipe(res);
@@ -31,5 +31,5 @@ app.post('/*', urlencodedParser, function (req, res) {
 
 var server = app.listen(80, function () {
     var port = server.address().port
-    console.log("服务器端口：" + port)
+    console.log("服务器监听端口：" + port)
 })
