@@ -45,21 +45,17 @@ define(['p', 'common'], function (p, util) {
 				$.ajax(ajaxOpt);
 
 				function success(data) {
-					console.log(data);
-					var json = JSON.parse(data);
-					console.log(json);
-					if (json.msg) {
+					if (JSON.parse(data).msg) {
 						resolve(data);
 					} else {
 						util.warningTip({
-							title: '错误信息1',
+							title: '错误信息',
 							context: '网络异常,请稍后再试',
 							cb: function () {
 								WeixinJSBridge.call('closeWindow');
 							}
 						});
 						reject(data.message);
-						// t.loginErrPage();
 					}
 				}
 				function error(XMLHttpRequest, textStatus) {
