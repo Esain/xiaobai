@@ -19,7 +19,7 @@ app.post('/*', urlencodedParser, function (req, res) {
     res.send(req.body);
 })
 
-var server = app.listen(8080, function () {
+var server = app.listen(80, function () {
     var port = server.address().port
     console.log("服务器端口：" + port)
 })
