@@ -49,7 +49,7 @@ define(['p', 'common'], function (p, util) {
 						resolve(data);
 					} else {
 						util.warningTip({
-							title: '错误信息',
+							title: '错误信息1',
 							context: '网络异常,请稍后再试',
 							cb: function () {
 								WeixinJSBridge.call('closeWindow');
@@ -61,7 +61,7 @@ define(['p', 'common'], function (p, util) {
 				}
 				function error(XMLHttpRequest, textStatus) {
 					util.warningTip({
-						title: '错误信息',
+						title: '错误信息2',
 						context: '网络异常,请稍后再试',
 						cb:function() {
 							// WeixinJSBridge.call('closeWindow');
