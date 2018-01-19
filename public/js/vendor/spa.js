@@ -147,6 +147,7 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
                         case 4:   //此微信账号已经绑定过了
                             localStorage.setItem("openID", res.data[0]["openID"]);
                             localStorage.setItem("isBinded", "true");
+                            localStorage.setItem("isBindedEnd", "true");
                             location.hash = 'account';
                             break;
                         case 0:   //此微信号未绑定账号
