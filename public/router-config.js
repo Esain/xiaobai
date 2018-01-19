@@ -49,7 +49,7 @@ require(['spa', 'fastclick', 'zepto', 'cookie'], function(vipspa, FastClick, $, 
             'binding': {
                 templateUrl: 'js/tpl/binding.html',
                 controller: 'js/binding.js?v=' + stamp,
-                requireAuth: false,
+                requireAuth: true,
                 title: '绑定账号'
             },
             'babyInfo': {
