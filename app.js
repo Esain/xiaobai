@@ -8,7 +8,7 @@ var session = require('express-session');
 // var socketUtil = require(path.join(process.cwd(),'compoment/socketUtil.js'));
 
 // var routes = require('./routes/index');
-// var users = require('./routes/users');
+var proxy = require('./routes/proxy');
 global.myUtil = require('./compoment/util.js');
 
 var app = express();
@@ -32,7 +32,10 @@ app.use(session({
 }))
 
 //app.use('/', routes);
-//app.use('/users', users);
+
+//proxy
+app.use('/baymin', proxy);
+
 registerRouteByDir(function (path, handler) {
   console.log(path)
   app.get(path, wrap(handler));
@@ -69,8 +72,6 @@ app.use(function (err, req, res, next) {
     error: {}
   });
 });
-
-
 
 function registerRouteByDir(register) {
   myUtil.listFile(process.cwd() + '/endpoint', function (file, fPath) {
