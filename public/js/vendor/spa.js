@@ -125,17 +125,17 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
             return false;
         }
         if (!routerItem.requireAuth) {
-            /* var cookie = getCookie('account');
+            var cookie = getCookie('account');
             if (!cookie || cookie != 'kdc-test') {
                 location.hash = 'binding';
-            } */
+            }
             //判断是否已经绑定
             if (localStorage.getItem("isBinded") == undefined) {
                 localStorage.setItem("isBinded", "false");
             }
             if (localStorage.getItem("isBinded") == "false") {
                 var valuestr = JSON.stringify({
-                    openID: '1234'
+                    openID: cookie
                 });
                 var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
                 // openID: getCookie('account')
