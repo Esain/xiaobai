@@ -6,10 +6,10 @@ router.get('/*', proxy);
 router.post('/*', proxy);
 
 function proxy(req, res, next) {
-	console.log('proxy');
+	console.log('proxy: ', req.url);
     res.setHeader('content-type', 'application/json;charset=UTF-8');
 
-    var sreq = superagent.post("http://47.52.238.90:8079" + req.url)
+    var sreq = superagent.post("http://47.52.238.90:8079/baymin" + req.url)
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .accept('application/json')
         .send(req.body);
@@ -21,4 +21,5 @@ function proxy(req, res, next) {
     });
     sreq.pipe(res);
 }
+
 module.exports = router;

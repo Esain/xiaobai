@@ -1,16 +1,16 @@
-define(['zepto'], function($) {
+define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
 
     function Vipspa() {
 
     }
 
-    Vipspa.prototype.start = function(config) {
+    Vipspa.prototype.start = function (config) {
         var self = this;
         self.routerMap = config.router;
         self.mainView = config.view;
         self.errorTemplateId = config.errorTemplateId;
         startRouter();
-        window.onhashchange = function() {
+        window.onhashchange = function () {
             startRouter();
         };
     };
@@ -20,9 +20,9 @@ define(['zepto'], function($) {
     //     'content': 
     //     }
     // }
-    Vipspa.prototype.getMessage = function(id) {
+    Vipspa.prototype.getMessage = function (id) {
         var msg = {};
-        $.each(messageStack, function(i, e) {
+        $.each(messageStack, function (i, e) {
             if (e.id === id) {
                 msg = e;
             }
@@ -30,9 +30,9 @@ define(['zepto'], function($) {
         return msg;
     };
 
-    Vipspa.prototype.setMessage = function(obj) {
+    Vipspa.prototype.setMessage = function (obj) {
         var _obj = JSON.parse(JSON.stringify(obj));
-        $.each(messageStack, function(i, e) {
+        $.each(messageStack, function (i, e) {
             if (e.id === _obj.id) {
                 e = _obj;
                 return false;
@@ -40,28 +40,28 @@ define(['zepto'], function($) {
         });
         messageStack.push(_obj);
     };
-    Vipspa.prototype.delMessage = function(id) {
+    Vipspa.prototype.delMessage = function (id) {
         if (typeof id === 'undefined') {
             return false;
         }
         var index = 0;
-        $.each(messageStack, function(i, e) {
+        $.each(messageStack, function (i, e) {
             if (e.id === id) {
                 index = i;
             }
         });
-        $.each(messageStack, function(i, e) {
+        $.each(messageStack, function (i, e) {
             if (i > index) {
                 messageStack[i - 1] = e;
             }
         });
     };
-    Vipspa.prototype.clearMessage = function(id) {
+    Vipspa.prototype.clearMessage = function (id) {
         var index = 0;
         messageStack = [];
     };
 
-    Vipspa.prototype.stringify = function(routerUrl, paramObj) {
+    Vipspa.prototype.stringify = function (routerUrl, paramObj) {
         var paramStr = '',
             hash;
         for (var i in paramObj) {
@@ -75,7 +75,7 @@ define(['zepto'], function($) {
         }
         return hash;
     };
-    Vipspa.prototype.parse = function(routerHash) {
+    Vipspa.prototype.parse = function (routerHash) {
         var hash = typeof routerHash === 'undefined' ? location.hash : routerHash;
         var obj = {
             url: '',
@@ -93,7 +93,7 @@ define(['zepto'], function($) {
             var paramStr = hash.substring(pIndex + 1);
             var paramArr = paramStr.split('&');
 
-            $.each(paramArr, function(i, e) {
+            $.each(paramArr, function (i, e) {
                 var item = e.split('='),
                     key,
                     val;
@@ -124,24 +124,54 @@ define(['zepto'], function($) {
             location.hash = defaultsRoute;
             return false;
         }
-
-        if (routerItem.requireAuth) {
-            var cookie = getCookie('account');
+        if (!routerItem.requireAuth) {
+            /* var cookie = getCookie('account');
             if (!cookie || cookie != 'kdc-test') {
                 location.hash = 'binding';
+            } */
+            //判断是否已经绑定
+            if (localStorage.getItem("isBinded") == undefined) {
+                localStorage.setItem("isBinded", "false");
+            }
+            if (localStorage.getItem("isBinded") == "false") {
+                var valuestr = JSON.stringify({
+                    openID: '1234'
+                });
+                var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
+                // openID: getCookie('account')
+                ajax.ajaxPost('baymin/checkbind', {
+                    key: keystr,
+                    value: valuestr
+                }).then(function (res) {
+                    switch (res.status) {
+                        case 4:   //此微信账号已经绑定过了
+                            localStorage.setItem("openID", res.data[0]["openID"]);
+                            localStorage.setItem("isBinded", "true");
+                            localStorage.setItem("isBindedEnd", "true");
+                            location.hash = 'account';
+                            break;
+                        case 0:   //此微信号未绑定账号
+                            localStorage.setItem("openID", res.data[0]["openID"]);
+                            location.hash = 'binding';
+                            break;
+                        default:
+                            location.hash = 'binding';
+                            break;
+                    };
+                }).catch(function (error) { });
             }
         }
         $.ajax({
             type: 'GET',
             url: routerItem.templateUrl,
             dataType: 'html',
-            success: function(data, status, xhr) {
+            success: function (data, status, xhr) {
                 // 请求拦截
                 $(vipspa.mainView).html(data);
                 document.title = routerItem.title;
                 loadScript(routerItem.controller);
             },
-            error: function(xhr, errorType, error) {
+            error: function (xhr, errorType, error) {
                 if ($(vipspa.errorTemplateId).length === 0) {
                     return false;
                 }
@@ -164,7 +194,7 @@ define(['zepto'], function($) {
         var script = document.createElement('script'),
             loaded;
         script.setAttribute('src', src);
-        script.onreadystatechange = script.onload = function() {
+        script.onreadystatechange = script.onload = function () {
             script.onreadystatechange = null;
             document.documentElement.removeChild(script);
             script = null;
