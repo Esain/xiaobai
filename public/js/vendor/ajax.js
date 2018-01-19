@@ -52,7 +52,7 @@ define(['p', 'common'], function (p, util) {
 							title: '错误信息',
 							context: '网络异常,请稍后再试',
 							cb: function () {
-								WeixinJSBridge.call('closeWindow');
+								location.hash = 'bind';
 							}
 						});
 						reject(data.message);
@@ -64,9 +64,10 @@ define(['p', 'common'], function (p, util) {
 						context: '网络异常,请稍后再试',
 						cb:function() {
 							// WeixinJSBridge.call('closeWindow');
-							WeixinJSBridge.invoke('closeWindow', {}, function (res) {
-								console.log(res.err_msg);
-							});
+							// WeixinJSBridge.invoke('closeWindow', {}, function (res) {
+							// 	console.log(res.err_msg);
+							// });
+							location.hash = 'bind';
 						}
 					});
 					reject(JSON.stringify(XMLHttpRequest));
