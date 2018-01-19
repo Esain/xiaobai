@@ -125,7 +125,7 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
             return false;
         }
         if (!routerItem.requireAuth) {
-            var cookie = getCookie('account');
+            var cookie = getCookie('openID');
             if (!cookie || cookie != 'kdc-test') {
                 location.hash = 'binding';
             }
