@@ -83,8 +83,8 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
             accountNumber: acountNum,
             openID: localStorage.openID,
             checkNum: vcode,
-            md5Value: code,
-            time: codetime
+            md5Value: code==""?"111":code,
+            time: codetime==""?"222":time
         });
         ajax.ajaxPost('baymin/bind', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
