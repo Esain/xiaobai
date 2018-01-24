@@ -1,4 +1,4 @@
-define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
+define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
 
     function Vipspa() {
 
@@ -124,8 +124,8 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
             location.hash = defaultsRoute;
             return false;
         }
-        var cookie = getCookie('openID');
-        if (!cookie || cookie != 'kdc-test') {
+        var openID = cookie.getCookie('openID');
+        if (!openID) {
             location.hash = 'binding';
         }
         if (!routerItem.requireAuth) {
@@ -135,7 +135,7 @@ define(['zepto', 'ajax', 'md5'], function ($, ajax, md5) {
             }
             if (localStorage.getItem("isBinded") == "false") {
                 var valuestr = JSON.stringify({
-                    openID: cookie
+                    openID: openID
                 });
                 var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
                 ajax.ajaxPost('baymin/checkbind', {
