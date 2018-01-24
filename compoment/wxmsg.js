@@ -31,7 +31,7 @@ var sendMsg = function (context,user_msg,resp,next){
 		Content : context || "已收到!"
 	}
 	var respXml = util.js2Xml(respMsg);
-	console.log(respXml);
+	// console.log(respXml);
 	resp.send(respXml);
 }
 
@@ -62,7 +62,10 @@ var processEvent = function (event_msg,req,resp,next){
 	switch(event_msg.Event){
 		case "CLICK": 
 			if(event_msg.EventKey === 'WATING_DEV'){
-				sendMsg('正在努力开发中...',event_msg,resp,next);
+				sendMsg('正在努力开发中...<a href="http://47.52.238.90/login">绑定账号</a>',event_msg,resp,next);
+			}
+			if(event_msg.EventKey === ''){
+				
 			}
 			break;
 		// case "kf_switch_session": 
