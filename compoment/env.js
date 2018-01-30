@@ -23,7 +23,7 @@ var dev_env = {
     REDIS_PASS : 'xiaobai',
     REDIRECT_URI: 'http://47.52.238.90/login',  //授权回调地址
 
-    MANAGEMENT_HOST: 'http://127.0.0.1:8081',//后台服务器地址
+    MANAGEMENT_HOST: 'http://47.52.238.90:8079',//后台服务器地址
     //微信相关配置
     WEI_XIN_APP_ID: 'wxb00577c81c47eecd',
     WEI_XIN_SECRET: '1906a54e388e3ced32d303c456fbe60d',

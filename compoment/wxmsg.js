@@ -2,6 +2,7 @@ var path = require("path");
 var fs = require("fs");
 // var redisUtil = require(path.join(process.cwd(),"compoment/redisUtil.js"));
 var util = require(path.join(process.cwd(),"/compoment/util.js"));
+var story = require(path.join(process.cwd(),"/compoment/story.js"));
 // var weixinUtil = require(path.join(process.cwd(),"/compoment/weixinUtil.js"));
 // var userStatistics = require(path.join(process.cwd(),"/compoment/userStatistics.js"));
 // var customerService = require(path.join(process.cwd(),"/compoment/customerService.js"));
@@ -55,6 +56,16 @@ var sendMsg = function (context,user_msg,resp,next){
 // 		})
 
 // }
+var getStory = function (openID, req, resp, next) {
+	story.getStoryList(user_msg.openID, function (err, data) {
+		if (err) {
+			console.error('getStoryList Error:   ', err.message);
+			sendMsg(user_msg, '获取今日故事列表失败', resp, next);
+		} else {
+			sendMsg(user_msg, data, resp, next);
+		}
+	})
+}
 
 var processEvent = function (event_msg,req,resp,next){
 	console.log("event : ",event_msg);
@@ -62,10 +73,10 @@ var processEvent = function (event_msg,req,resp,next){
 	switch(event_msg.Event){
 		case "CLICK": 
 			if(event_msg.EventKey === 'WATING_DEV'){
-				sendMsg('正在努力开发中...<a href="http://47.52.238.90/login">绑定账号</a>',event_msg,resp,next);
+				sendMsg('正在努力开发中...',event_msg,resp,next);
 			}
-			if(event_msg.EventKey === ''){
-				
+			if(event_msg.EventKey === 'GET_STORY'){
+				getStory(event_msg)
 			}
 			break;
 		// case "kf_switch_session": 
