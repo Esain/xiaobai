@@ -125,11 +125,12 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
             return false;
         }
         var openID = cookie.getCookie('openID');
-        localStorage.setItem("openID", openID);
-
         if (!openID) {
             location.hash = 'binding';
         }
+
+        localStorage.setItem("openID", openID);
+
         if (!routerItem.requireAuth) {
             //判断是否已经绑定
             if (sessionStorage.getItem("isBinded") == undefined) {
@@ -139,7 +140,7 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
                 var valuestr = JSON.stringify({
                     openID: openID
                 });
-                alert(openID)
+                
                 var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
                 ajax.ajaxPost('baymin/checkbind', {
                     key: keystr,
@@ -162,27 +163,28 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
                     };
                 }).catch(function (error) { });
             }
-        }
-        $.ajax({
-            type: 'GET',
-            url: routerItem.templateUrl,
-            dataType: 'html',
-            success: function (data, status, xhr) {
-                // 请求拦截
-                $(vipspa.mainView).html(data);
-                document.title = routerItem.title;
-                loadScript(routerItem.controller);
-            },
-            error: function (xhr, errorType, error) {
-                if ($(vipspa.errorTemplateId).length === 0) {
-                    return false;
+        }else{
+            $.ajax({
+                type: 'GET',
+                url: routerItem.templateUrl,
+                dataType: 'html',
+                success: function (data, status, xhr) {
+                    // 请求拦截
+                    $(vipspa.mainView).html(data);
+                    document.title = routerItem.title;
+                    loadScript(routerItem.controller);
+                },
+                error: function (xhr, errorType, error) {
+                    if ($(vipspa.errorTemplateId).length === 0) {
+                        return false;
+                    }
+                    var errHtml = $(vipspa.errorTemplateId).html();
+                    errHtml = errHtml.replace(/{{errStatus}}/, xhr.status);
+                    errHtml = errHtml.replace(/{{errContent}}/, xhr.responseText);
+                    $(vipspa.mainView).html(errHtml);
                 }
-                var errHtml = $(vipspa.errorTemplateId).html();
-                errHtml = errHtml.replace(/{{errStatus}}/, xhr.status);
-                errHtml = errHtml.replace(/{{errContent}}/, xhr.responseText);
-                $(vipspa.mainView).html(errHtml);
-            }
-        });
+            });
+        }
     }
 
     function startRouter() {
