@@ -128,7 +128,7 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
         if (!openID) {
             location.hash = 'binding';
         }
-        if (!routerItem.requireAuth) {
+        if (routerItem.requireAuth) {
             //判断是否已经绑定
             if (localStorage.getItem("isBinded") == undefined) {
                 localStorage.setItem("isBinded", "false");
