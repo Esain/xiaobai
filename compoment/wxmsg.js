@@ -56,7 +56,7 @@ var sendMsg = function (context,user_msg,resp,next){
 // 		})
 
 // }
-var getStory = function (openID, req, resp, next) {
+var getStory = function (user_msg, req, resp, next) {
 	story.getStoryList(user_msg.openID, function (err, data) {
 		if (err) {
 			console.error('getStoryList Error:   ', err.message);
