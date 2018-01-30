@@ -22,13 +22,13 @@ var getStoryList = function (openId, cb) {
         uri: uri,
         qs: postObj
     }, function (error, resp, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && resp.statusCode == 200) {
             body = JSON.parse(body);
             console.log(body)
             if (body.status == 4) {
                 cb(null, `获取宝宝今天的故事列表,请先<a href="${env.REDIRECT_URI}">绑定账号</a>`);
             } else if (body.status != 0) {
-                cb(error, null);
+                cb(new Error(body.msg), null);
             } else {
                 if (Array.isArray(body.data)) {
                     if (body.data.length != 0) {
@@ -52,7 +52,7 @@ var getStoryList = function (openId, cb) {
 
             }
         } else {
-            cb('获取故事列表请求失败', null);
+            cb(new Error(`${resp.statusCode}  ${error}`), null);
         }
     })
 
