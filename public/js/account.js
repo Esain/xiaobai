@@ -2,7 +2,7 @@ require([
     'require',
     'ajax',
     'md5',
-    'common'
+    'common',
 ], function (require, ajax, md5, util) {
 
     if (sessionStorage.isBinded == "true") {
@@ -50,7 +50,7 @@ require([
     //解除绑定
     function unBind() {
         var valuestr = JSON.stringify({
-            openID: cookies.getCookie('openID')
+            openID: localStorage.openID
         });
         var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
         // openID: getCookie('account')
