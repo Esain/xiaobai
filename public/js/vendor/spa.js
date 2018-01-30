@@ -133,7 +133,7 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
         if (!routerItem.requireAuth) {
             //判断是否已经绑定
             if (sessionStorage.getItem("isBinded") == undefined) {
-                sessionStorage.getItem("isBinded", "false");
+                sessionStorage.setItem("isBinded", "false");
             }
             if (sessionStorage.getItem("isBinded") == "false") {
                 var valuestr = JSON.stringify({
