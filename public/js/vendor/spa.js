@@ -163,28 +163,28 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
                     };
                 }).catch(function (error) { });
             }
-        }else{
-            $.ajax({
-                type: 'GET',
-                url: routerItem.templateUrl,
-                dataType: 'html',
-                success: function (data, status, xhr) {
-                    // 请求拦截
-                    $(vipspa.mainView).html(data);
-                    document.title = routerItem.title;
-                    loadScript(routerItem.controller);
-                },
-                error: function (xhr, errorType, error) {
-                    if ($(vipspa.errorTemplateId).length === 0) {
-                        return false;
-                    }
-                    var errHtml = $(vipspa.errorTemplateId).html();
-                    errHtml = errHtml.replace(/{{errStatus}}/, xhr.status);
-                    errHtml = errHtml.replace(/{{errContent}}/, xhr.responseText);
-                    $(vipspa.mainView).html(errHtml);
-                }
-            });
         }
+
+        $.ajax({
+            type: 'GET',
+            url: routerItem.templateUrl,
+            dataType: 'html',
+            success: function (data, status, xhr) {
+                // 请求拦截
+                $(vipspa.mainView).html(data);
+                document.title = routerItem.title;
+                loadScript(routerItem.controller);
+            },
+            error: function (xhr, errorType, error) {
+                if ($(vipspa.errorTemplateId).length === 0) {
+                    return false;
+                }
+                var errHtml = $(vipspa.errorTemplateId).html();
+                errHtml = errHtml.replace(/{{errStatus}}/, xhr.status);
+                errHtml = errHtml.replace(/{{errContent}}/, xhr.responseText);
+                $(vipspa.mainView).html(errHtml);
+            }
+        });
     }
 
     function startRouter() {
