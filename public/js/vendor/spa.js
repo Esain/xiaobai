@@ -126,7 +126,7 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
         }
         var openID = cookie.getCookie('openID');
         localStorage.setItem("openID", openID);
-        
+
         if (!openID) {
             location.hash = 'binding';
         }
@@ -139,6 +139,7 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
                 var valuestr = JSON.stringify({
                     openID: openID
                 });
+                alert(openID)
                 var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
                 ajax.ajaxPost('baymin/checkbind', {
                     key: keystr,
