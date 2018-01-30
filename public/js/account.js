@@ -18,6 +18,7 @@ require([
         var valuestr = JSON.stringify({
             openID: localStorage.openID
         });
+        alert(localStorage.openID);
         var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
         // openID: getCookie('account')
         ajax.ajaxPost('baymin/getbabyinfo', {
