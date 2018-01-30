@@ -23,7 +23,7 @@ var getStoryList = function (openId, cb) {
         qs: postObj
     }, function (error, resp, body) {
         if (error) {
-            return cb(new Error(`${error.Error}`), null);
+            return cb(new Error(`${error}`), null);
         }
 
         if (resp.statusCode == 200) {
