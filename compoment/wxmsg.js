@@ -57,7 +57,7 @@ var sendMsg = function (context,user_msg,resp,next){
 
 // }
 var getStory = function (user_msg, req, resp, next) {
-	story.getStoryList(user_msg.openID, function (err, data) {
+	story.getStoryList(user_msg.FromUserName, function (err, data) {
 		if (err) {
 			console.error('getStoryList Error:   ', err.message);
 			sendMsg(user_msg, '获取今日故事列表失败', resp, next);
