@@ -1,14 +1,14 @@
 var path = require("path");
 var fs = require("fs");
 // var redisUtil = require(path.join(process.cwd(),"compoment/redisUtil.js"));
-var util = require(path.join(process.cwd(),"/compoment/util.js"));
-var story = require(path.join(process.cwd(),"/compoment/story.js"));
+var util = require(path.join(process.cwd(), "/compoment/util.js"));
+var story = require(path.join(process.cwd(), "/compoment/story.js"));
 // var weixinUtil = require(path.join(process.cwd(),"/compoment/weixinUtil.js"));
 // var userStatistics = require(path.join(process.cwd(),"/compoment/userStatistics.js"));
 // var customerService = require(path.join(process.cwd(),"/compoment/customerService.js"));
 // var tencentyun = require(path.join(process.cwd(),"compoment/tencentyun/tencentyunUtil.js"));
 
-var processMsg = function (user_msg,req,resp,next){
+var processMsg = function (user_msg, req, resp, next) {
 	// weixinUtil.getUserInfo(user_msg.FromUserName,function (userInfo){
 	// 	//写进数据库，触发sokect.io	
 	// 	mysocket.sent2AllMsg({userId:user_msg.FromUserName,username:userInfo.nickname,content:user_msg.Content});
@@ -16,20 +16,20 @@ var processMsg = function (user_msg,req,resp,next){
 	// 	if(user_msg.Content =="转接"){
 	// 		return sentService(user_msg,resp,next);
 	// 	}
-		
+
 	// 	console.log("userInfo : ",userInfo);	
-		 sendMsg("",user_msg,resp,next);
+	sendMsg("", user_msg, resp, next);
 	// })
 
 }
 
-var sendMsg = function (context,user_msg,resp,next){
+var sendMsg = function (context, user_msg, resp, next) {
 	var respMsg = {
-		ToUserName : user_msg.FromUserName,
-		FromUserName : user_msg.ToUserName,
-		CreateTime : new Date().getTime(),
-		MsgType : "text",
-		Content : context || "已收到!"
+		ToUserName: user_msg.FromUserName,
+		FromUserName: user_msg.ToUserName,
+		CreateTime: new Date().getTime(),
+		MsgType: "text",
+		Content: context || "已收到!"
 	}
 	var respXml = util.js2Xml(respMsg);
 	// console.log(respXml);
@@ -60,23 +60,23 @@ var getStory = function (user_msg, req, resp, next) {
 	story.getStoryList(user_msg.FromUserName, function (err, data) {
 		if (err) {
 			console.error('getStoryList Error:   ', err.message);
-			sendMsg(user_msg, '获取今日故事列表失败', resp, next);
+			sendMsg('获取今日故事列表失败', user_msg, resp, next);
 		} else {
-			sendMsg(user_msg, data, resp, next);
+			sendMsg(data, user_msg, resp, next);
 		}
 	})
 }
 
-var processEvent = function (event_msg,req,resp,next){
-	console.log("event : ",event_msg);
+var processEvent = function (event_msg, req, resp, next) {
+	console.log("event : ", event_msg);
 	//存入数据库
-	switch(event_msg.Event){
-		case "CLICK": 
-			if(event_msg.EventKey === 'WATING_DEV'){
-				sendMsg('正在努力开发中...',event_msg,resp,next);
+	switch (event_msg.Event) {
+		case "CLICK":
+			if (event_msg.EventKey === 'WATING_DEV') {
+				sendMsg('正在努力开发中...', event_msg, resp, next);
 			}
-			if(event_msg.EventKey === 'GET_STORY'){
-				getStory(event_msg)
+			if (event_msg.EventKey === 'GET_STORY') {
+				getStory(event_msg, resp, next)
 			}
 			break;
 		// case "kf_switch_session": 
@@ -90,7 +90,7 @@ var processEvent = function (event_msg,req,resp,next){
 	}
 }
 
-var processImage = function (image_msg,req,resp,next){
+var processImage = function (image_msg, req, resp, next) {
 	// var mediaId  = image_msg.MediaId;
 	// util.toPromise(weixinUtil.getMedia,weixinUtil)(mediaId)
 	// 	.then(function (filepath){
@@ -114,9 +114,9 @@ var processImage = function (image_msg,req,resp,next){
 	// 		console.log(err);
 	// 	});
 }
-module.exports={
-	processMsg:processMsg,
-	processEvent:processEvent,
-	processImage:processImage,
+module.exports = {
+	processMsg: processMsg,
+	processEvent: processEvent,
+	processImage: processImage,
 }
 
