@@ -92,7 +92,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
         }).then(function (res) {
             switch (res.status) {
                 case 0: //成功
-                    localStorage.setItem("openID", res.data[0]["openID"]);
+                    // localStorage.setItem("openID", res.data[0]["openID"]);
                     localStorage.setItem("accountNumber", res.data[0]["accountNumber"]);
                     localStorage.setItem("isBinded", "true");
                     localStorage.setItem("isBindedEnd", "false");
