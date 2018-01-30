@@ -5,7 +5,7 @@ var env = require("../compoment/env.js");
 var util = require("../compoment/util.js");
 
 var getStoryList = function (openId, cb) {
-    let encyObj = { openId: openID, date: Date.now() };
+    let encyObj = { openId: openId, date: Date.now() };
     let encyStr = JSON.stringify(encyObj);
     let appKey = '8d98b93a0d4e1777acb36d4404c61854';
     let keyStr = null;
