@@ -143,10 +143,10 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     getTask();
 
     $(".task .check").click(function () {
-        if (localStorage.isBindedEnd=="true"&&localStorage.isBinded=="true"){
+        if (sessionStorage.getItem('isBindedEnd=="true"') && sessionStorage.getItem('isBinded=="true"')) {
             location.hash = "account";
         }else{
-            localStorage.setItem("isBindedEnd", "true");
+            sessionStorage.setItem("isBindedEnd", "true");
             util.warningTip({
                 title: '设置成功',
                 context: "用户设置已完成！",

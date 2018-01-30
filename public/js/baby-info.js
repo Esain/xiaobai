@@ -1,7 +1,7 @@
 require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5, util) {
     var isChanged = false;
 
-    if (localStorage.isBinded && localStorage.cname && localStorage.sex && localStorage.birthday && localStorage.relation) {
+    if (sessionStorage.isBinded && localStorage.cname && localStorage.sex && localStorage.birthday && localStorage.relation) {
         $("#baby-name").val(localStorage.cname);
         $("#gender .weui-cell__bd .val").text(localStorage.sex);
         $("#age .weui-cell__bd .val").text(localStorage.birthday);

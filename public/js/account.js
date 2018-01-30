@@ -5,7 +5,7 @@ require([
     'common'
 ], function (require, ajax, md5, util) {
 
-    if (localStorage.isBinded == "true") {
+    if (sessionStorage.isBinded == "true") {
         getBabyInfo();
     }
 
@@ -61,8 +61,8 @@ require([
             switch (res.status) {
                 case 0:   //成功
                     localStorage.clear();
-                    localStorage.setItem("openID", res.data[0]["openID"]);
-                    localStorage.setItem("isBinded", "false");
+                    // localStorage.setItem("openID", res.data[0]["openID"]);
+                    sessionStorage.setItem("isBinded", "false");
                     util.warningTip({
                         title: '解绑成功',
                         context: res.msg,

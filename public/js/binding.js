@@ -94,8 +94,8 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                 case 0: //成功
                     // localStorage.setItem("openID", res.data[0]["openID"]);
                     localStorage.setItem("accountNumber", res.data[0]["accountNumber"]);
-                    localStorage.setItem("isBinded", "true");
-                    localStorage.setItem("isBindedEnd", "false");
+                    sessionStorage.setItem("isBinded", "true");
+                    sessionStorage.setItem("isBindedEnd", "false");
                     // setCookie('account', res.data[0]["openID"]);
                     location.hash = 'babyInfo';
                     break;

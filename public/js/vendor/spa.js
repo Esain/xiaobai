@@ -125,17 +125,17 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
             return false;
         }
         var openID = cookie.getCookie('openID');
-        alert(openID);
-        localStorage.setItem("openID", res.data[0]["openID"]);
+        localStorage.setItem("openID", openID);
+        
         if (!openID) {
             location.hash = 'binding';
         }
         if (!routerItem.requireAuth) {
             //判断是否已经绑定
-            if (localStorage.getItem("isBinded") == undefined) {
-                localStorage.setItem("isBinded", "false");
+            if (sessionStorage.getItem("isBinded") == undefined) {
+                sessionStorage.getItem("isBinded", "false");
             }
-            if (localStorage.getItem("isBinded") == "false") {
+            if (sessionStorage.getItem("isBinded") == "false") {
                 var valuestr = JSON.stringify({
                     openID: openID
                 });
@@ -147,8 +147,8 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
                     switch (res.status) {
                         case 4:   //此微信账号已经绑定过了
                             // localStorage.setItem("openID", res.data[0]["openID"]);
-                            localStorage.setItem("isBinded", "true");
-                            localStorage.setItem("isBindedEnd", "true");
+                            sessionStorage.setItem("isBinded", "true");
+                            sessionStorage.setItem("isBindedEnd", "true");
                             location.hash = 'account';
                             break;
                         case 0:   //此微信号未绑定账号
