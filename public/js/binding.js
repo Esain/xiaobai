@@ -33,6 +33,11 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                 case 0: //成功
                     code = data.data[0]["md5Value"];
                     codetime = data.data[0]["time"];
+                    util.warningTip({
+                        title: '验证码发送成功',
+                        cb: function () {
+                        }
+                    })
                     break;
                 default:
                     util.warningTip({
@@ -83,8 +88,8 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
             accountNumber: acountNum,
             openID: localStorage.openID,
             checkNum: vcode,
-            md5Value: code==""?"111":code,
-            time: codetime==""?"222":time
+            md5Value: code == "" ? "111" : code,
+            time: codetime == "" ? "222" : codetime
         });
         ajax.ajaxPost('baymin/bind', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
