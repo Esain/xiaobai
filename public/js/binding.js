@@ -30,7 +30,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
             value: valuestr
         }).then(function (data) {
             switch (data.status) {
-                case 1: //成功
+                case 0: //成功
                     code = data.data[0]["md5Value"];
                     codetime = data.data[0]["time"];
                     break;
