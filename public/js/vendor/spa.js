@@ -3,9 +3,11 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, Cookie, 
 
     function Vipspa() {
         this.bindingRoute = 'binding';
+        this.firstLoad = true;
+        this.prevHash = location.hash;
         var openID = Cookie.getCookie('openID');
         if (!openID) {
-            location.hash = this.bindingRoute;
+            alert('获取openID失败');
         }
 
         localStorage.setItem("openID", 'oorIpv5I0bCjmqLXzZ--1svvDUMo');
@@ -152,7 +154,6 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, Cookie, 
                 url: routerItem.templateUrl,
                 dataType: 'html',
                 success: function (data, status, xhr) {
-                    // 请求拦截
                     $(vipspa.mainView).html(data);
                     document.title = routerItem.title;
                     loadScript(routerItem.controller);
@@ -173,7 +174,13 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, Cookie, 
     function startRouter() {
         var hash = location.hash;
         var routeObj = vipspa.parse(hash);
-        routerAction(routeObj);
+        if(vipspa.prevHash != hash){
+            vipspa.prevHash = location.hash;
+            routerAction(routeObj);
+        } else if (vipspa.firstLoad){
+            routerAction(routeObj);
+        }
+        vipspa.firstLoad = false;
     }
 
     function loadScript(src, callback) {
