@@ -1,8 +1,14 @@
-define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, cookie, p) {
+define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, Cookie, p) {
     var myPromise = Promise || p;
 
     function Vipspa() {
+        this.bindingRoute = 'binding';
+        var openID = Cookie.getCookie('openID');
+        if (!openID) {
+            location.hash = this.bindingRoute;
+        }
 
+        localStorage.setItem("openID", 'oorIpv5I0bCjmqLXzZ--1svvDUMo');
     }
 
     Vipspa.prototype.start = function (config) {
@@ -10,7 +16,6 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, cookie, 
         self.routerMap = config.router;
         self.mainView = config.view;
         self.errorTemplateId = config.errorTemplateId;
-        self.bindingRoute = 'binding';
         startRouter();
         window.onhashchange = function () {
             startRouter();
@@ -119,7 +124,7 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, cookie, 
    
     function routerAction(routeObj) {
         var routerItem = vipspa.routerMap[routeObj.url];
-
+        // console.log(routerItem)
         if (typeof routerItem === 'undefined') {
             var defaultsRoute = vipspa.routerMap.defaults;
             routerItem = vipspa.routerMap[defaultsRoute];
@@ -182,7 +187,7 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, cookie, 
             script = null;
             if (!loaded) {
                 if (typeof callback === 'function')
-                    callbackÏ();
+                    callback();
             }
             loaded = true;
         };

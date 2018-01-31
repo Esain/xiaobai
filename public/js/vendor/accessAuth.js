@@ -13,10 +13,10 @@ define([
             if (sessionStorage.getItem("isBinded") == "true") {
                 resolve(true);
             } else {
-                if (sessionStorage.getItem("isBinded") == undefined) {
-                    sessionStorage.setItem("isBinded", "false");
+                if (sessionStorage.getItem("isBinded") == 'false') {
+                    reject()
                 }
-                if (sessionStorage.getItem("isBinded") == "false") {
+                if (sessionStorage.getItem("isBinded") == undefined) {
                     var valuestr = JSON.stringify({
                         openID: localStorage.openID
                     });

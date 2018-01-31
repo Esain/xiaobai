@@ -28,21 +28,21 @@ function randomString(len) {
 };
 
 require(['spa', 'fastclick', 'zepto', 'cookie', 'accessAuth'], function (vipspa, FastClick, $, Cookie, accessAuth) {
-    
     $(function () {
         FastClick.attach(document.body);
     });
-    var openID = Cookie.getCookie('openID');
-    if (!openID) {
-        location.hash = vipspa.bindingRoute;
-    }
-
-    localStorage.setItem("openID", 'oorIpv5I0bCjmqLXzZ--1svvDUMo');
+  
     // alert(Cookie.getCookie('openID'));
     vipspa.start({
         view: '#ui-view',
         router: {
             'account': {
+                templateUrl: 'js/tpl/account.html',
+                controller: 'js/account.js?v=' + stamp,
+                requireAuth: accessAuth,
+                title: '用户设置'
+            },
+            '': {
                 templateUrl: 'js/tpl/account.html',
                 controller: 'js/account.js?v=' + stamp,
                 requireAuth: accessAuth,
@@ -69,4 +69,5 @@ require(['spa', 'fastclick', 'zepto', 'cookie', 'accessAuth'], function (vipspa,
         },
         errorTemplateId: '#error' //可选的错误模板，用来处理加载html模块异常时展示错误内容
     });
+   
 });
