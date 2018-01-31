@@ -6,6 +6,9 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
         $("#gender .weui-cell__bd .val").text(localStorage.sex);
         $("#age .weui-cell__bd .val").text(localStorage.birthday);
         $("#family .weui-cell__bd .val").text(localStorage.relation);
+
+    }
+    if (sessionStorage.isBindedEnd === 'true') {
         $(".weui-btn").text("完成");
     } else {
         $(".weui-btn").text("下一步");

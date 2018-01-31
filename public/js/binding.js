@@ -102,20 +102,59 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                     sessionStorage.setItem("isBinded", "true");
                     sessionStorage.setItem("isBindedEnd", "false");
                     // setCookie('account', res.data[0]["openID"]);
+                    return getBabyInfo();
+                    break;
+                default:
+                    throw new Error('BIND_ERROR' + res.msg);
+                    break;
+            };
+        }).then(function (res) {
+            switch (res.status) {
+                case 0:   //成功
+                    // localStorage.setItem("openID", res.data[1]["openID"]);
+                    localStorage.setItem("relation", res.data[1]["relation"]);
+                    localStorage.setItem("cname", res.data[0]["cname"]);
+                    localStorage.setItem("birthday", res.data[0]["birthday"]);
+                    localStorage.setItem("sex", res.data[0]["sex"]);
+                    localStorage.setItem("accountNumber", res.data[1]["accountNumber"]);
                     location.hash = 'babyInfo';
                     break;
                 default:
-                    util.warningTip({
-                        title: '绑定失败',
-                        context: res.msg,
-                        cb: function () {
-                        }
-                    })
+                    throw new Error('GET_BABY_ERROR' + res.msg);
                     break;
             };
-        }).catch(function (error) { });
+        }).catch(function (error) {
+            if (error.message.indexOf('BIND_ERROR') > -1){
+                util.warningTip({
+                    title: '绑定失败',
+                    context: error.message,
+                    cb: function () {
+                    }
+                });
+            }
+            if (error.message.indexOf('GET_BABY_ERROR') > -1){
+                util.warningTip({
+                    title: '宝宝信息获取失败',
+                    context: error.message,
+                    cb: function () {
+                    }
+                });
+            }
+         });
     }
 
+    //查询宝宝信息
+    function getBabyInfo() {
+        var valuestr = JSON.stringify({
+            openID: localStorage.openID
+        });
 
+        var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
+        // openID: getCookie('account')
+        return ajax.ajaxPost('baymin/getbabyinfo', {
+            key: keystr,
+            value: valuestr
+        })
+    }
 
 })

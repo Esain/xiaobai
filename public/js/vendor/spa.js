@@ -1,4 +1,5 @@
-define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
+define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, cookie, p) {
+    var myPromise = Promise || p;
 
     function Vipspa() {
 
@@ -9,6 +10,7 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
         self.routerMap = config.router;
         self.mainView = config.view;
         self.errorTemplateId = config.errorTemplateId;
+        self.bindingRoute = 'binding';
         startRouter();
         window.onhashchange = function () {
             startRouter();
@@ -114,77 +116,53 @@ define(['zepto', 'ajax', 'md5', 'cookie'], function ($, ajax, md5, cookie) {
             param: param
         };
     };
-
+   
     function routerAction(routeObj) {
         var routerItem = vipspa.routerMap[routeObj.url];
-        console.log(routerItem);
+
         if (typeof routerItem === 'undefined') {
             var defaultsRoute = vipspa.routerMap.defaults;
             routerItem = vipspa.routerMap[defaultsRoute];
             location.hash = defaultsRoute;
             return false;
         }
-        var openID = cookie.getCookie('openID');
-        if (!openID) {
-            location.hash = 'binding';
-        }
-
-        localStorage.setItem("openID", openID);
-
-        if (!routerItem.requireAuth) {
-            //判断是否已经绑定
-            if (sessionStorage.getItem("isBinded") == undefined) {
-                sessionStorage.setItem("isBinded", "false");
-            }
-            if (sessionStorage.getItem("isBinded") == "false") {
-                var valuestr = JSON.stringify({
-                    openID: openID
-                });
-                
-                var keystr = md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr);
-                ajax.ajaxPost('baymin/checkbind', {
-                    key: keystr,
-                    value: valuestr
-                }).then(function (res) {
-                    switch (res.status) {
-                        case 4:   //此微信账号已经绑定过了
-                            // localStorage.setItem("openID", res.data[0]["openID"]);
-                            sessionStorage.setItem("isBinded", "true");
-                            sessionStorage.setItem("isBindedEnd", "true");
-                            location.hash = 'account';
-                            break;
-                        case 0:   //此微信号未绑定账号
-                            // localStorage.setItem("openID", res.data[0]["openID"]);
-                            location.hash = 'binding';
-                            break;
-                        default:
-                            location.hash = 'binding';
-                            break;
-                    };
-                }).catch(function (error) { });
-            }
-        }
-
-        $.ajax({
-            type: 'GET',
-            url: routerItem.templateUrl,
-            dataType: 'html',
-            success: function (data, status, xhr) {
-                // 请求拦截
-                $(vipspa.mainView).html(data);
-                document.title = routerItem.title;
-                loadScript(routerItem.controller);
-            },
-            error: function (xhr, errorType, error) {
-                if ($(vipspa.errorTemplateId).length === 0) {
-                    return false;
-                }
-                var errHtml = $(vipspa.errorTemplateId).html();
-                errHtml = errHtml.replace(/{{errStatus}}/, xhr.status);
-                errHtml = errHtml.replace(/{{errContent}}/, xhr.responseText);
-                $(vipspa.mainView).html(errHtml);
+        // console.log(routerItem);
+        var authPromise = routerItem.requireAuth ? routerItem.requireAuth() : myPromise.resolve(1);
+        //判断是否已经绑定
+            
+        authPromise.then(function () {
+            getPage();
+        }).catch(function (error) {
+            if(error.statck){
+                console.log(error);
+            }else{
+                console.log(error);
+                location.hash = vipspa.bindingRoute;
             }
         });
+
+        function getPage() {
+            $.ajax({
+                type: 'GET',
+                url: routerItem.templateUrl,
+                dataType: 'html',
+                success: function (data, status, xhr) {
+                    // 请求拦截
+                    $(vipspa.mainView).html(data);
+                    document.title = routerItem.title;
+                    loadScript(routerItem.controller);
+                },
+                error: function (xhr, errorType, error) {
+                    if ($(vipspa.errorTemplateId).length === 0) {
+                        return false;
+                    }
+                    var errHtml = $(vipspa.errorTemplateId).html();
+                    errHtml = errHtml.replace(/{{errStatus}}/, xhr.status);
+                    errHtml = errHtml.replace(/{{errContent}}/, xhr.responseText);
+                    $(vipspa.mainView).html(errHtml);
+                }
+            });
+        }
     }
 
     function startRouter() {

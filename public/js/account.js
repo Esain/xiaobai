@@ -27,7 +27,7 @@ require([
         }).then(function (res) {
             switch (res.status) {
                 case 0:   //成功
-                    localStorage.setItem("openID", res.data[1]["openID"]);
+                    // localStorage.setItem("openID", res.data[1]["openID"]);
                     localStorage.setItem("relation", res.data[1]["relation"]);
                     localStorage.setItem("cname", res.data[0]["cname"]);
                     localStorage.setItem("birthday", res.data[0]["birthday"]);
@@ -61,10 +61,11 @@ require([
             switch (res.status) {
                 case 0:   //成功
                     localStorage.clear();
-                    // localStorage.setItem("openID", res.data[0]["openID"]);
+                    localStorage.setItem("openID", res.data[0]["openID"]);
                     sessionStorage.setItem("isBinded", "false");
+                    sessionStorage.setItem("isBindedEnd", "false");
                     util.warningTip({
-                        title: '解绑成功',
+                        title: '提示',
                         context: res.msg,
                         cb: function () {
                         }
