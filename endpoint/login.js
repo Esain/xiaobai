@@ -15,8 +15,11 @@ module.exports = function (req, resp, param, next) {
             resp.cookie('openID', codeMap[code], { maxAge: Date.now() + 72000000 });
             resp.redirect('/');
         }else{
-            console.log('-------------------------  getAuthAccessUrl code: ' + code +' -----------------------------------');
-            codeMap[code] = 'empty';
+            console.log('----------  getAuthAccessUrl code: ' + code +' -----------------------------------');
+            if(codeMap[code]){
+                console.log('----------  getAuthAccessUrl code has been userd -----------------------------------');
+                return;
+            } 
             request
                 .get(constants.getAuthAccessUrl(code), function (error, response, body) {
                     if(error){
@@ -28,7 +31,8 @@ module.exports = function (req, resp, param, next) {
                             var error = new Error('获取token失败')
                             next(error);
                         } else {
-                            console.log('remote opendID: ', codeMap[code])
+                            console.log('remote opendID: ', reqObj.openid)
+                            codeMap[code] = reqObj.openid;
                             resp.cookie('openID', reqObj.openid, { maxAge: Date.now() + 72000000 });
                             resp.redirect('/');
                         }
