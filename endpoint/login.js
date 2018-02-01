@@ -15,6 +15,7 @@ module.exports = function (req, resp, param, next) {
             resp.cookie('openID', codeMap[code], { maxAge: Date.now() + 72000000 });
             resp.redirect('/');
         }else{
+            console.log('-------------------------  getAuthAccessUrl code: ' + code +' -----------------------------------');
             codeMap[code] = 'empty';
             request
                 .get(constants.getAuthAccessUrl(code), function (error, response, body) {
