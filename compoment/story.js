@@ -15,7 +15,7 @@ var getStoryList = function (openId, cb) {
         return cb(error, null);
     }
     let postObj = { value: encyStr, key: keyStr };
-    console.log('getStroyList param: ', postObj);
+    // console.log('getStroyList param: ', postObj);
     let uri = `${env.MANAGEMENT_HOST}/baymin/care/getListenStorys`;
     request({
         method: 'POST',
@@ -28,7 +28,7 @@ var getStoryList = function (openId, cb) {
 
         if (resp.statusCode == 200) {
             body = JSON.parse(body);
-            console.log(body)
+            // console.log(body)
             if (body.status == 4) {
                 cb(null, `获取宝宝今天的故事列表,请先<a href="${env.REDIRECT_URI}">绑定账号</a>`);
             } else if (body.status != 0) {

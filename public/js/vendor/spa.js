@@ -10,7 +10,7 @@ define(['zepto', 'ajax', 'md5', 'cookie', 'p'], function ($, ajax, md5, Cookie, 
             alert('获取openID失败');
         }
 
-        localStorage.setItem("openID", 'oorIpv5I0bCjmqLXzZ--1svvDUMo');
+        localStorage.setItem("openID", openID);
     }
 
     Vipspa.prototype.start = function (config) {
