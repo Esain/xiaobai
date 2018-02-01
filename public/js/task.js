@@ -2,6 +2,8 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     var accountNumber;
     var actions = [];
     var changeActions = [];
+    var isChange = false;
+
     function renderPgaes() {
         actions.forEach(function (item) {
             var tpl = getTpl(item)
@@ -44,6 +46,7 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
             onChange: function (result) {
             },
             onConfirm: function (result) {
+                isChange = true;
                 $this.find('.val').html(result[0].value + ' : ' + result[1].value + '提醒');
                 var newaction = $this.find(".weui-cell__bd").text();
                 var newtime = $this.find(".weui-cell__ft span").text();
@@ -142,7 +145,6 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     // }
 
     var submit = function(){
-        // var postModel = { accountNumber: accountNumber };
         changeActions.length = 0;
         $('.weui-cell').each(function(i, dom) {
             var data =  $(dom).data('o-data');
@@ -150,10 +152,8 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
                 accountNumber: accountNumber,
                 action: data.label,
                 time: data.time
-            })
+            });
         });
-        // postModel.habits = changeActions;
-        // console.log(postModel)
 
         var valuestr = JSON.stringify(changeActions);
         return ajax.ajaxPost('baymin/saveHabits', {
@@ -180,6 +180,10 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     getTask();
 
     $(".task .check").click(function () {
+        if (!isChange) {
+            location.hash = "account";
+            return
+        }
         submit().then(function (params) {
             if (sessionStorage.getItem('isBindedEnd=="true"') && sessionStorage.getItem('isBinded=="true"')) {
                 location.hash = "account";
