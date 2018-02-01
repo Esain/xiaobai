@@ -45,14 +45,14 @@ define(['p', 'common'], function (p, util) {
 				$.ajax(ajaxOpt);
 
 				function success(data) {
-					if (data.msg) {
+					if (data.data) {
 						resolve(data);
 					} else {
 						util.warningTip({
 							title: '错误信息',
 							context: '网络异常,请稍后再试',
 							cb: function () {
-								location.hash = 'binding';
+								// location.hash = 'binding';
 							}
 						});
 						reject(data.message);
@@ -67,7 +67,7 @@ define(['p', 'common'], function (p, util) {
 							// WeixinJSBridge.invoke('closeWindow', {}, function (res) {
 							// 	console.log(res.err_msg);
 							// });
-							location.hash = 'binding';
+							// location.hash = 'binding';
 						}
 					});
 					reject(JSON.stringify(XMLHttpRequest));

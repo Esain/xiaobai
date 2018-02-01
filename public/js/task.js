@@ -13,7 +13,8 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
             var data = $(this).data('o-data');
             var oldaction = data.label;
             var oldtime = data.time;
-            setTime(oldaction, oldtime, e);
+            var id = data.value;
+            setTime(oldaction, oldtime, e, id);
         });
     }
 
@@ -34,13 +35,15 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
 
 
 
-    var setTime = function (oldaction, oldtime, e) {
+    var setTime = function (oldaction, oldtime, e, id) {
+        var tmpTimeArr = oldtime.split(' : ');
         var $this = $(e.target).closest('.weui-cell_access');
         weui.picker(getNumArr(0, 24, '时'), getNumArr(0, 59, '分'), {
+            id: 'picker' + id,
+            defaultValue: tmpTimeArr,
             onChange: function (result) {
             },
             onConfirm: function (result) {
-                console.log(result);
                 $this.find('.val').html(result[0].value + ' : ' + result[1].value + '提醒');
                 var newaction = $this.find(".weui-cell__bd").text();
                 var newtime = $this.find(".weui-cell__ft span").text();
@@ -139,20 +142,21 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
     // }
 
     var submit = function(){
-        var postModel = { accountNumber: accountNumber };
+        // var postModel = { accountNumber: accountNumber };
         changeActions.length = 0;
         $('.weui-cell').each(function(i, dom) {
             var data =  $(dom).data('o-data');
             changeActions.push({
+                accountNumber: accountNumber,
                 action: data.label,
-                tiem: data.time
+                time: data.time
             })
         });
-        postModel.habits = changeActions;
+        // postModel.habits = changeActions;
         // console.log(postModel)
 
-        var valuestr = JSON.stringify(postModel);
-        return ajax.ajaxPost('baymin/updatehabit', {
+        var valuestr = JSON.stringify(changeActions);
+        return ajax.ajaxPost('baymin/saveHabits', {
             key: md5("8d98b93a0d4e1777acb36d4404c61854" + valuestr),
             value: valuestr
         }).then(function (res) {
