@@ -10,11 +10,12 @@ module.exports = function (req, resp, param, next) {
         resp.redirect(constants.AUTH_URL);
     }else{
         var code = param.code;
-        if(codeMap[code]){
+        if (codeMap[code] && codeMap[code] !='empty'){
             console.log('codeMap opendID: ', codeMap[code])
             resp.cookie('openID', codeMap[code], { maxAge: Date.now() + 72000000 });
             resp.redirect('/');
         }else{
+            codeMap[code] = 'empty';
             request
                 .get(constants.getAuthAccessUrl(code), function (error, response, body) {
                     if(error){
