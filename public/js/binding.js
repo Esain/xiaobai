@@ -2,14 +2,17 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
     var codetime = "",
         code = "";
 
+    var cdUtil = util.getCountDown(function (message, flag) {
+        $('.weui-vcode-btn').text(message);
+    });
     //点击绑定
     $('.binding .check')
         .off('click')
         .on('click', function () {
-            var acountNum = $('.account-num').val();
-            var mobile = $('.account-mobile').val();
-            var vcode = $('.vcode').val();
-            if (acountNum && mobile && vcode) {
+            if (checkPhone() && checkAccount() && checkCode()) {
+                var acountNum = $('.account-num').val();
+                var mobile = $('.account-mobile').val();
+                var vcode = $('.vcode').val();
                 bingingRequest(acountNum, mobile, vcode);
             } else {
                 util.warningTip({
@@ -21,6 +24,13 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
 
     //获取验证码
     $(".weui-vcode-btn").click(function () {
+        //倒计时中
+        if (cdUtil.count != 60) return;
+        //手机号格式不正确
+        if (!checkPhone()) return;
+        
+        cdUtil.start();
+
         var phone = $(".account-mobile").val();
         var valuestr = JSON.stringify({
             username: phone
@@ -33,13 +43,9 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                 case 0: //成功
                     code = data.data[0]["md5Value"];
                     codetime = data.data[0]["time"];
-                    util.warningTip({
-                        title: '验证码发送成功',
-                        cb: function () {
-                        }
-                    })
                     break;
                 default:
+                    cdUtil.reset();
                     util.warningTip({
                         title: '验证码发送失败',
                         context: data.msg,
@@ -48,7 +54,9 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                     })
                     break;
             };
-        }).catch(function (error) { });
+        }).catch(function (error) {
+            cdUtil.reset();
+         });
     });
 
     //表单校验
@@ -57,21 +65,32 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
         if (expr.test(num)) {
             $dom.parents(".weui-cell").removeClass("weui-cell_warn");
             $dom.parents(".weui-cell").find(".weui-icon-warn").hide();
+            return true
         } else {
             $dom.parents(".weui-cell").addClass("weui-cell_warn");
             $dom.parents(".weui-cell").find(".weui-icon-warn").show();
+            return false;
         }
     }
     $(".account-mobile").blur(function () {
-        check($(this), /^1[3|4|5|7|8][0-9]{9}$/);
+        checkPhone();
     });
     $(".account-num").blur(function () {
-        check($(this), /^[0-9][0-9]*$/);
+        checkAccount();
     });
     $(".vcode").blur(function () {
-        check($(this), /^[0-9][0-9]*$/);
+        checkCode();
     });
 
+    var checkPhone = function(){
+        return check($(".account-mobile"), /^1[3|4|5|7|8][0-9]{9}$/);
+    }
+    var checkAccount = function () {
+        return check($(".account-num"), /^\d+$/);
+    }
+    var checkCode = function () {
+        return check($(".vcode"), /^\d+$/);
+    }
     //点击查看示例
     $(".weui-account-btn").click(function () {
         $(".weui-gallery").show();
@@ -124,7 +143,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                     break;
             };
         }).catch(function (error) {
-            if (error.message.indexOf('BIND_ERROR') > -1){
+            if (error.message.indexOf('BIND_ERROR') > -1) {
                 util.warningTip({
                     title: '绑定失败',
                     context: error.message,
@@ -132,7 +151,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                     }
                 });
             }
-            if (error.message.indexOf('GET_BABY_ERROR') > -1){
+            if (error.message.indexOf('GET_BABY_ERROR') > -1) {
                 util.warningTip({
                     title: '宝宝信息获取失败',
                     context: error.message,
@@ -140,7 +159,7 @@ require(['zepto', 'cookie', 'common', 'ajax', 'md5'], function ($, cookie, util,
                     }
                 });
             }
-         });
+        });
     }
 
     //查询宝宝信息

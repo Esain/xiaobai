@@ -7,13 +7,13 @@ define(function () {
         CountDown.start = function () {
             var self = CountDown;
             self._a = setTimeout(function () {
-                if (self.count === 0) {
+                if (self.count === 1) {
                     self.count = 60
                     fn('获取验证码', false);
                 } else {
-                    self.start()
-                    self.count--
+                    self.start();
                     fn(self.count + '秒', true);
+                    self.count--;
                 }
             }, 1000)
         }
