@@ -18,7 +18,7 @@ var getStoryList = function (openId, cb) {
     console.log('getStroyList param: ', postObj);
     let uri = `${env.MANAGEMENT_HOST}/baymin/care/getListenStorys`;
     request({
-        method: 'GET',
+        method: 'POST',
         uri: uri,
         qs: postObj
     }, function (error, resp, body) {
