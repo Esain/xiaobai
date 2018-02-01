@@ -189,6 +189,7 @@ require(['zepto', 'weui', 'ajax', 'md5', 'common'], function ($, weui, ajax, md5
                     title: '设置成功',
                     context: "用户设置已完成！",
                     cb: function () {
+                        location.hash = "account";
                     }
                 })
             }
