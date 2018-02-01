@@ -19,7 +19,8 @@ module.exports = function (req, resp, param, next) {
             if(codeMap[code]){
                 console.log('----------  getAuthAccessUrl code has been userd -----------------------------------');
                 return;
-            } 
+            }
+            codeMap[code] = 'empty'; 
             request
                 .get(constants.getAuthAccessUrl(code), function (error, response, body) {
                     if(error){
