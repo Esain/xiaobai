@@ -17,7 +17,7 @@ module.exports = function (req, resp, param, next) {
         }else{
             console.log('----------  getAuthAccessUrl code: ' + code +' -----------------------------------');
             if(codeMap[code]){
-                console.log('----------  getAuthAccessUrl code has been userd -----------------------------------');
+                console.log('----------  getAuthAccessUrl code has been used -----------------------------------');
                 return;
             }
             codeMap[code] = 'empty'; 

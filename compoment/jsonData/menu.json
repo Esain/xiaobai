@@ -3,7 +3,7 @@
     {
         "type": "click",
         "name": "故事云",
-        "key": "GET_STORY"
+        "key": "WATING_DEV"
     },
     {
         "name": "账户设置",
@@ -16,7 +16,7 @@
         {
             "type": "click",
             "name": "宝宝动态",
-            "key": "WATING_DEV"
+            "key": "GET_STORY"
         }]
     }]
 }
